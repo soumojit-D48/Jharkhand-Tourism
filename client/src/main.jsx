@@ -4,13 +4,19 @@ import { BrowserRouter } from "react-router-dom";
 import './index.css'
 import App from './App.jsx'
 import { AuthProvider } from './context/AuthContext';
+import { ThemeProvider } from './context/ThemeContext';
+// import ToastContainer from 'sonner'
+// import 'react-toastify/dist/ReactToastify.css';
 
 createRoot(document.getElementById('root')).render(
   // <StrictMode>
     <BrowserRouter>
+    {/* <ToastContainer /> */}
+    {/* <ThemeProvider> */}
       <AuthProvider>
         <App />
       </AuthProvider>
+      {/* </ThemeProvider> */}
       
     </BrowserRouter>
   // </StrictMode>,
