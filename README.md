@@ -7,29 +7,19 @@ Brief description of project.
 
 ## 🛠️ Tech Stack
 
-### Frontend (Client)
-- **React** (Vite as build tool)
-- **Tailwind CSS** → Utility-first styling
-- **shadcn/ui** → Pre-built, accessible React components
-- **React Router** → Navigation
-- **Axios** → API requests
+### 🌐 Frontend (Client)
+- **React** (with Vite as build tool) 
+- **Tailwind CSS** – Utility-first CSS framework for styling
+- **shadcn/ui** – Pre-built, accessible React components
 
-### Backend (Server)
-- **Node.js** with **Express.js**
-- **MongoDB** with **Mongoose**
-- **JWT & bcrypt** → Authentication & security
+### ⚙️ Backend (Server)
+- **Node.js** with **Express.js** Server-side runtime & web framework
+- **MongoDB** with **Mongoose** – Database & ODM
 
-### APIs & Libraries
-- **Weather API** → Fetches real-time weather data
-- **Leaflet.js** → JavaScript library for interactive maps & routing
-- **Google Gemini API** → AI-powered chatbot and Q&A assistant
-
-### Tools & Deployment
-- **Git & GitHub** → Version control
-- **Thunder Client / Postman** → API testing
-- **Vercel / Netlify** → Frontend hosting
-- **Render / Railway / Heroku** → Backend hosting
-- **Cloudinary** → Media upload & storage
+### 🔌 APIs & Libraries
+- **Weather API** – Real-time weather data
+- **Leaflet.js** – JavaScript library for interactive maps & routing
+- **Google Gemini API** – AI-powered chatbot & Q&A assistant
 
 ---
 
@@ -41,4 +31,3 @@ Brief description of project.
 │── README.md
 
 ```
-
