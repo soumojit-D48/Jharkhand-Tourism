@@ -11,6 +11,17 @@ const HeaderSlider = () => {
   const [touchEnd, setTouchEnd] = useState(0);
 
   const navigate = useNavigate()
+  
+
+  // Optimized auto-play with cleanup
+  useEffect(() => {
+    
+    const interval = setInterval(() => {
+      setCurrentSlide((prev) => (prev + 1) % slides.length);
+    }, 5000);
+    
+    return () => clearInterval(interval);
+  }, [slides.length]);
 
   // Image preloading for smoother transitions
   useEffect(() => {
