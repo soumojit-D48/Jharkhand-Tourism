@@ -92,6 +92,60 @@
 
 
 
+// header slider data
+
+export const slides = [
+    {
+      id: 1,
+      image: "https://img.freepik.com/premium-photo/patratu-valley-ranchi-beautiful-place-jharkhand_459244-239.jpg",
+      title: "Discover Jharkhand's Natural Beauty",
+      subtitle: "Explore pristine forests and wildlife sanctuaries",
+      location: "Patratu Valley, Ranchi",
+      rating: 4.8,
+      highlights: ["Hill Station", "Photography", "Adventure"]
+    },
+    {
+      id: 2,
+      image: "https://img.freepik.com/premium-photo/dassam-water-falls-bundu-ranchi-jharkhand_193751-27.jpg",
+      title: "Rich Cultural Heritage",
+      subtitle: "Experience traditional festivals and tribal art",
+      location: "Dassam Falls, Ranchi",
+      rating: 4.7,
+      highlights: ["Waterfalls", "Culture", "Trekking"]
+    },
+    {
+      id: 3,
+      image: "https://www.indiatravel.app/wp-content/uploads/2024/03/places-to-visit-in-jharkhand.jpg",
+      title: "Majestic Waterfalls",
+      subtitle: "Visit stunning cascades and natural wonders",
+      location: "Hundru Falls, Jharkhand",
+      rating: 4.9,
+      highlights: ["Nature", "Scenic Views", "Monsoon Special"]
+    },
+    {
+      id: 4,
+      image: "https://www.godigit.com/content/dam/godigit/directportal/en/contenthm/ghatshila-image.jpg",
+      title: "Wildlife Adventures",
+      subtitle: "Encounter diverse flora and fauna in their habitat",
+      location: "Ghatshila, East Singhbhum",
+      rating: 4.6,
+      highlights: ["Wildlife", "Safari", "Bird Watching"]
+    },
+    {
+      id: 5,
+      image: "https://ak0.picdn.net/shutterstock/videos/31954030/thumb/1.jpg?i10c=img.resize(height:160)",
+      title: "Eco-Tourism Paradise",
+      subtitle: "Sustainable travel through untouched landscapes",
+      location: "Various Eco Zones",
+      rating: 4.8,
+      highlights: ["Eco-Tourism", "Sustainability", "Adventure"]
+    }
+  ];
+
+
+
+
+
 
 export const culturalHighlights = [
   {

@@ -1,79 +1,113 @@
 
-
-import React, { useState, useEffect } from 'react';
-import { ChevronLeft, ChevronRight, Play, Pause } from 'lucide-react';
+import React, { useState, useEffect, useCallback } from 'react';
+import { ChevronLeft, ChevronRight, Play, Pause, MapPin, Clock, Star } from 'lucide-react';
+import { slides } from '@/data';
+import { useNavigate } from 'react-router-dom';
 
 const HeaderSlider = () => {
   const [currentSlide, setCurrentSlide] = useState(0);
-  const [isAutoPlaying, setIsAutoPlaying] = useState(true);
+  const [isLoaded, setIsLoaded] = useState(false);
+  const [touchStart, setTouchStart] = useState(0);
+  const [touchEnd, setTouchEnd] = useState(0);
 
-  // Sample images representing Jharkhand's eco and cultural tourism
-  const slides = [
-    {
-      id: 1,
-      image: "https://img.freepik.com/premium-photo/patratu-valley-ranchi-beautiful-place-jharkhand_459244-239.jpg",
-      title: "Discover Jharkhand's Natural Beauty",
-      subtitle: "Explore pristine forests and wildlife sanctuaries"
-    },
-    {
-      id: 2,
-      image: "https://img.freepik.com/premium-photo/dassam-water-falls-bundu-ranchi-jharkhand_193751-27.jpg",
-      title: "Rich Cultural Heritage",
-      subtitle: "Experience traditional festivals and tribal art"
-    },
-    {
-      id: 3, // "https://www.indiatravel.app/wp-content/uploads/2024/03/places-to-visit-in-jharkhand.jpg"
-      image: "https://www.indiatravel.app/wp-content/uploads/2024/03/places-to-visit-in-jharkhand.jpg",
-      title: "Majestic Waterfalls",
-      subtitle: "Visit stunning cascades and natural wonders"
-    }, // https://www.godigit.com/content/dam/godigit/directportal/en/contenthm/ghatshila-image.jpg
-    {
-      id: 4,
-      image: "https://www.godigit.com/content/dam/godigit/directportal/en/contenthm/ghatshila-image.jpg",
-      title: "Wildlife Adventures",
-      subtitle: "Encounter diverse flora and fauna in their habitat"
-    },
-    {
-      id: 5,
-      image: "https://ak0.picdn.net/shutterstock/videos/31954030/thumb/1.jpg?i10c=img.resize(height:160)",
-      title: "Eco-Tourism Paradise",
-      subtitle: "Sustainable travel through untouched landscapes"
-    }
-  ];
+  const navigate = useNavigate()
+  
 
-  // Auto-play functionality
+  // Optimized auto-play with cleanup
   useEffect(() => {
-    if (isAutoPlaying) {
-      const interval = setInterval(() => {
-        setCurrentSlide((prev) => (prev + 1) % slides.length);
-      }, 4000);
-      return () => clearInterval(interval);
-    }
-  }, [isAutoPlaying, slides.length]);
+    
+    const interval = setInterval(() => {
+      setCurrentSlide((prev) => (prev + 1) % slides.length);
+    }, 5000);
+    
+    return () => clearInterval(interval);
+  }, [slides.length]);
 
-  const nextSlide = () => {
+  // Image preloading for smoother transitions
+  useEffect(() => {
+    const preloadImages = () => {
+      slides.forEach((slide) => {
+        const img = new Image();
+        img.src = slide.image;
+      });
+      setIsLoaded(true);
+    };
+    preloadImages();
+  }, [slides]);
+
+  // Navigation functions with auto-play pause
+  const nextSlide = useCallback(() => {
     setCurrentSlide((prev) => (prev + 1) % slides.length);
-  };
+    setTimeout(() => setIsAutoPlaying(true), 3000);
+  }, [slides.length]);
 
-  const prevSlide = () => {
+  const prevSlide = useCallback(() => {
     setCurrentSlide((prev) => (prev - 1 + slides.length) % slides.length);
-  };
+    setTimeout(() => setIsAutoPlaying(true), 3000);
+  }, [slides.length]);
 
-  const goToSlide = (index) => {
+  const goToSlide = useCallback((index) => {
     setCurrentSlide(index);
+    setTimeout(() => setIsAutoPlaying(true), 3000);
+  }, []);
+
+
+
+  // Touch handlers for mobile swipe
+  const handleTouchStart = (e) => {
+    setTouchStart(e.targetTouches[0].clientX);
   };
 
-  const toggleAutoPlay = () => {
-    setIsAutoPlaying(!isAutoPlaying);
+  const handleTouchMove = (e) => {
+    setTouchEnd(e.targetTouches[0].clientX);
   };
+
+  const handleTouchEnd = () => {
+    if (!touchStart || !touchEnd) return;
+    
+    const distance = touchStart - touchEnd;
+    const isLeftSwipe = distance > 50;
+    const isRightSwipe = distance < -50;
+
+    if (isLeftSwipe) nextSlide();
+    if (isRightSwipe) prevSlide();
+  };
+
+  // Keyboard navigation
+  useEffect(() => {
+    const handleKeyDown = (e) => {
+      if (e.key === 'ArrowLeft') prevSlide();
+      if (e.key === 'ArrowRight') nextSlide();
+      if (e.key === ' ') {
+        e.preventDefault();
+      }
+    };
+
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [nextSlide, prevSlide]);
+
+  const currentSlideData = slides[currentSlide];
 
   return (
-    <div className="relative w-full h-screen overflow-hidden">
+    <div className="relative w-full h-[91vh] overflow-hidden bg-gray-900">
+      {/* Loading state */}
+      {!isLoaded && (
+        <div className="absolute inset-0 flex items-center justify-center bg-gray-900">
+          <div className="animate-spin rounded-full h-16 w-16 border-4 border-white border-t-transparent"></div>
+        </div>
+      )}
+
       {/* Slider Container */}
-      <div className="relative w-full h-full">
+      <div 
+        className="relative w-full h-full"
+        onTouchStart={handleTouchStart}
+        onTouchMove={handleTouchMove}
+        onTouchEnd={handleTouchEnd}
+      >
         {/* Slides */}
         <div 
-          className="flex h-full transition-transform duration-700 ease-in-out"
+          className="flex h-full transition-transform duration-1000 ease-out"
           style={{ transform: `translateX(-${currentSlide * 100}%)` }}
         >
           {slides.map((slide, index) => (
@@ -81,84 +115,130 @@ const HeaderSlider = () => {
               key={slide.id}
               className="min-w-full h-full relative"
             >
-                
               <img
                 src={slide.image}
                 alt={slide.title}
-                className="w-full h-full object-cover"
+                className="w-full h-full object-cover transition-transform duration-1000 hover:scale-105"
+                loading={index === 0 ? "eager" : "lazy"}
               />
-              {/* Overlay */}
-              {/* <div className="absolute inset-0 bg-black bg-opacity-40"></div> */}
               
-              {/* Content */}
-              <div className="absolute inset-0 flex items-center justify-center text-center">
-                <div className="text-white max-w-4xl px-6">
-                  <h1 className="text-5xl md:text-7xl font-bold mb-4 animate-fade-in">
-                    {slide.title}
+              {/* Enhanced gradient overlay */}
+              <div className="absolute inset-0 bg-gradient-to-r from-black/70 via-black/40 to-transparent"></div>
+              
+              {/* Content with improved layout */}
+              <div className="absolute inset-0 flex items-center justify-start text-left pl-8 md:pl-16">
+                <div className="text-white max-w-2xl">
+                  {/* Location badge */}
+                  <div className="flex items-center gap-2 mb-4 opacity-90">
+                    <MapPin className="h-4 w-4" />
+                    <span className="text-sm font-medium bg-white/20 px-3 py-1 rounded-full backdrop-blur-sm">
+                      {slide.location}
+                    </span>
+                  </div>
+
+                  {/* Main title with staggered animation */}
+                  <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold mb-4 leading-tight">
+                    <span className="inline-block animate-fade-in-up" style={{animationDelay: '0.2s'}}>
+                      {slide.title.split(' ').slice(0, 2).join(' ')}
+                    </span>
+                    <br />
+                    <span className="inline-block animate-fade-in-up text-yellow-400" style={{animationDelay: '0.4s'}}>
+                      {slide.title.split(' ').slice(2).join(' ')}
+                    </span>
                   </h1>
-                  <p className="text-xl md:text-2xl font-light opacity-90">
+                  
+                  {/* Subtitle */}
+                  <p className="text-lg md:text-xl font-light opacity-90 mb-6 animate-fade-in-up" style={{animationDelay: '0.6s'}}>
                     {slide.subtitle}
                   </p>
+
+                  {/* Rating and highlights */}
+                  <div className="flex flex-wrap items-center gap-4 animate-fade-in-up" style={{animationDelay: '0.8s'}}>
+                    <div className="flex items-center gap-1">
+                      <Star className="h-4 w-4 fill-yellow-400 text-yellow-400" />
+                      <span className="font-semibold">{slide.rating}</span>
+                    </div>
+                    {slide.highlights.map((highlight, idx) => (
+                      <span key={idx} className="text-xs bg-white/20 px-2 py-1 rounded-full backdrop-blur-sm">
+                        {highlight}
+                      </span>
+                    ))}
+                  </div>
+
+                  {/* CTA Button */}
+                  <button onClick={() =>{ navigate('/destinations'); scrollTo(0,0)}} className="mt-6 bg-gradient-to-r from-yellow-500 to-orange-500 hover:from-yellow-600 hover:to-orange-600 text-white font-semibold px-8 py-3 rounded-full transition-all duration-300 transform hover:scale-105 hover:shadow-lg animate-fade-in-up" style={{animationDelay: '1s'}}>
+                    Explore Now
+                  </button>
                 </div>
               </div>
             </div>
           ))}
         </div>
 
-         <button
-        onClick={prevSlide}
-        className="absolute left-4 top-1/2 -translate-y-1/2 z-20 p-2 rounded-full bg-white/10 hover:bg-white/20 backdrop-blur-sm transition-all duration-200"
-      >
-        <ChevronLeft className="h-6 w-6 text-white" />
-      </button>
-      <button
-        onClick={nextSlide}
-        className="absolute right-4 top-1/2 -translate-y-1/2 z-20 p-2 rounded-full bg-white/10 hover:bg-white/20 backdrop-blur-sm transition-all duration-200"
-      >
-        <ChevronRight className="h-6 w-6 text-white" />
-      </button>
+        {/* Enhanced Navigation Controls */}
+        <button
+          onClick={prevSlide}
+          className="absolute left-4 md:left-8 top-1/2 -translate-y-1/2 z-20 p-3 rounded-full bg-white/10 hover:bg-white/20 backdrop-blur-md transition-all duration-300 group border border-white/20"
+          aria-label="Previous slide"
+        >
+          <ChevronLeft className="h-6 w-6 text-white group-hover:scale-110 transition-transform" />
+        </button>
+        
+        <button
+          onClick={nextSlide}
+          className="absolute right-4 md:right-8 top-1/2 -translate-y-1/2 z-20 p-3 rounded-full bg-white/10 hover:bg-white/20 backdrop-blur-md transition-all duration-300 group border border-white/20"
+          aria-label="Next slide"
+        >
+          <ChevronRight className="h-6 w-6 text-white group-hover:scale-110 transition-transform" />
+        </button>
 
-        {/* Slide Indicators */}
-        <div className="absolute bottom-6 left-1/2 transform -translate-x-1/2 flex space-x-3">
+
+        {/* Enhanced slide indicators */}
+        <div className="absolute bottom-6 left-1/2 transform -translate-x-1/2 flex space-x-2">
           {slides.map((_, index) => (
             <button
               key={index}
               onClick={() => goToSlide(index)}
-              className={`w-3 h-3 rounded-full transition-all duration-300 ${
+              className={`relative h-2 rounded-full transition-all duration-500 ${
                 index === currentSlide 
-                  ? 'bg-white scale-125' 
-                  : 'bg-white bg-opacity-50 hover:bg-opacity-75'
+                  ? 'bg-white w-8' 
+                  : 'bg-white/50 hover:bg-white/75 w-2'
               }`}
               aria-label={`Go to slide ${index + 1}`}
-            />
+            >
+              {index === currentSlide && (
+                <div className="absolute inset-0 bg-gradient-to-r from-yellow-400 to-orange-400 rounded-full animate-pulse"></div>
+              )}
+            </button>
           ))}
         </div>
 
-        {/* Progress Bar */}
-        <div className="absolute bottom-0 left-0 w-full h-1 bg-white bg-opacity-20">
+        {/* Animated progress bar */}
+        <div className="absolute bottom-0 left-0 w-full h-1 bg-white/10">
           <div 
-            className="h-full bg-white transition-all duration-300"
+            className="h-full bg-gradient-to-r from-yellow-400 to-orange-400 transition-all duration-1000 ease-out"
             style={{ width: `${((currentSlide + 1) / slides.length) * 100}%` }}
           />
         </div>
       </div>
 
-      {/* Floating Info Card */} 
-      <div className="absolute bottom-8 left-8 bg-white bg-opacity-10 backdrop-blur-md p-4 rounded-lg max-w-sm hidden md:block text-black hover:shadow-2xl hover:-translate-y-3 transition-all duration-300">
-        <h3 className="font-semibold text-lg mb-2">Jharkhand Tourism</h3>
-        <p className="text-sm opacity-90">
-          Discover the unexplored beauty of Jharkhand - where nature meets culture in perfect harmony.
-        </p>
-      </div>
+      
 
-      {/* Custom CSS for animations */}
+      {/* Custom animations */}
       <style jsx>{`
-        @keyframes fade-in {
-          from { opacity: 0; transform: translateY(30px); }
-          to { opacity: 1; transform: translateY(0); }
+        @keyframes fade-in-up {
+          from { 
+            opacity: 0; 
+            transform: translateY(50px); 
+          }
+          to { 
+            opacity: 1; 
+            transform: translateY(0); 
+          }
         }
-        .animate-fade-in {
-          animation: fade-in 1s ease-out;
+        .animate-fade-in-up {
+          animation: fade-in-up 0.8s ease-out forwards;
+          opacity: 0;
         }
       `}</style>
     </div>
