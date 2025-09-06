@@ -1,19 +1,19 @@
 
 import React, { useState, useEffect, useCallback } from 'react';
-import { ChevronLeft, ChevronRight, Play, Pause, MapPin, Clock, Star } from 'lucide-react';
+import { ChevronLeft, ChevronRight, MapPin, Star } from 'lucide-react';
 import { slides } from '@/data';
 import { useNavigate } from 'react-router-dom';
 
 const HeaderSlider = () => {
   const [currentSlide, setCurrentSlide] = useState(0);
   const [isLoaded, setIsLoaded] = useState(false);
+  // mobile states
   const [touchStart, setTouchStart] = useState(0);
   const [touchEnd, setTouchEnd] = useState(0);
 
   const navigate = useNavigate()
-  
 
-  // Optimized auto-play with cleanup
+  // Auto-play functionality
   useEffect(() => {
     
     const interval = setInterval(() => {
@@ -35,20 +35,17 @@ const HeaderSlider = () => {
     preloadImages();
   }, [slides]);
 
-  // Navigation functions with auto-play pause
+  // Navigation functions -> <-
   const nextSlide = useCallback(() => {
     setCurrentSlide((prev) => (prev + 1) % slides.length);
-    setTimeout(() => setIsAutoPlaying(true), 3000);
   }, [slides.length]);
 
   const prevSlide = useCallback(() => {
     setCurrentSlide((prev) => (prev - 1 + slides.length) % slides.length);
-    setTimeout(() => setIsAutoPlaying(true), 3000);
   }, [slides.length]);
 
-  const goToSlide = useCallback((index) => {
+  const goToSlide = useCallback((index) => { // via click dots(index)
     setCurrentSlide(index);
-    setTimeout(() => setIsAutoPlaying(true), 3000);
   }, []);
 
 
@@ -73,7 +70,7 @@ const HeaderSlider = () => {
     if (isRightSwipe) prevSlide();
   };
 
-  // Keyboard navigation
+  // Keyboard navigation <  >
   useEffect(() => {
     const handleKeyDown = (e) => {
       if (e.key === 'ArrowLeft') prevSlide();
@@ -87,7 +84,6 @@ const HeaderSlider = () => {
     return () => window.removeEventListener('keydown', handleKeyDown);
   }, [nextSlide, prevSlide]);
 
-  const currentSlideData = slides[currentSlide];
 
   return (
     <div className="relative w-full h-[91vh] overflow-hidden bg-gray-900">
@@ -122,10 +118,10 @@ const HeaderSlider = () => {
                 loading={index === 0 ? "eager" : "lazy"}
               />
               
-              {/* Enhanced gradient overlay */}
+              {/*  gradient overlay */}
               <div className="absolute inset-0 bg-gradient-to-r from-black/70 via-black/40 to-transparent"></div>
               
-              {/* Content with improved layout */}
+              {/* layout */}
               <div className="absolute inset-0 flex items-center justify-start text-left pl-8 md:pl-16">
                 <div className="text-white max-w-2xl">
                   {/* Location badge */}
@@ -166,7 +162,7 @@ const HeaderSlider = () => {
                   </div>
 
                   {/* CTA Button */}
-                  <button onClick={() =>{ navigate('/destinations'); scrollTo(0,0)}} className="mt-6 bg-gradient-to-r from-yellow-500 to-orange-500 hover:from-yellow-600 hover:to-orange-600 text-white font-semibold px-8 py-3 rounded-full transition-all duration-300 transform hover:scale-105 hover:shadow-lg animate-fade-in-up" style={{animationDelay: '1s'}}>
+                  <button onClick={() =>{ navigate('/destinations'); window.scrollTo(0,0)}} className="mt-6 bg-gradient-to-r from-yellow-500 to-orange-500 hover:from-yellow-600 hover:to-orange-600 text-white font-semibold px-8 py-3 rounded-full transition-all duration-300 transform hover:scale-105 hover:shadow-lg animate-fade-in-up" style={{animationDelay: '1s'}}>
                     Explore Now
                   </button>
                 </div>
@@ -175,10 +171,10 @@ const HeaderSlider = () => {
           ))}
         </div>
 
-        {/* Enhanced Navigation Controls */}
+        {/* Navigation Controls */}
         <button
           onClick={prevSlide}
-          className="absolute left-4 md:left-8 top-1/2 -translate-y-1/2 z-20 p-3 rounded-full bg-white/10 hover:bg-white/20 backdrop-blur-md transition-all duration-300 group border border-white/20"
+          className="absolute left-4 md:left-8 top-1/2 -translate-y-1/2 z-20 p-3 rounded-full bg-white/5 hover:bg-white/15 backdrop-blur-md transition-all duration-300 group border border-white/15"
           aria-label="Previous slide"
         >
           <ChevronLeft className="h-6 w-6 text-white group-hover:scale-110 transition-transform" />
@@ -186,17 +182,17 @@ const HeaderSlider = () => {
         
         <button
           onClick={nextSlide}
-          className="absolute right-4 md:right-8 top-1/2 -translate-y-1/2 z-20 p-3 rounded-full bg-white/10 hover:bg-white/20 backdrop-blur-md transition-all duration-300 group border border-white/20"
+          className="absolute right-4 md:right-8 top-1/2 -translate-y-1/2 z-20 p-3 rounded-full bg-white/5 hover:bg-white/15 backdrop-blur-md transition-all duration-300 group border border-white/15"
           aria-label="Next slide"
         >
           <ChevronRight className="h-6 w-6 text-white group-hover:scale-110 transition-transform" />
         </button>
 
 
-        {/* Enhanced slide indicators */}
+        {/* slide indicators */}
         <div className="absolute bottom-6 left-1/2 transform -translate-x-1/2 flex space-x-2">
           {slides.map((_, index) => (
-            <button
+            <button // dots are buttons
               key={index}
               onClick={() => goToSlide(index)}
               className={`relative h-2 rounded-full transition-all duration-500 ${
@@ -204,7 +200,6 @@ const HeaderSlider = () => {
                   ? 'bg-white w-8' 
                   : 'bg-white/50 hover:bg-white/75 w-2'
               }`}
-              aria-label={`Go to slide ${index + 1}`}
             >
               {index === currentSlide && (
                 <div className="absolute inset-0 bg-gradient-to-r from-yellow-400 to-orange-400 rounded-full animate-pulse"></div>
@@ -223,7 +218,6 @@ const HeaderSlider = () => {
       </div>
 
       
-
       {/* Custom animations */}
       <style jsx>{`
         @keyframes fade-in-up {
