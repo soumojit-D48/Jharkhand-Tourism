@@ -189,6 +189,8 @@ carete a folder called .env , by double click(right click) on client folder
 2. cd server
 carete a folder called .env , by double click(right click) on server folder
 
+**In both .env files "paste the following environment variables" that I given in "group" dont share env veriable with others:**
+
 #Go inside client and install dependencies and run these two one by one:
 cd client
 -> You must here \client> then run next two,
