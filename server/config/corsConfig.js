@@ -4,7 +4,7 @@ function cofigureCors() {
         origin: (origin, callBack) => {
             const allowOrigins = [
                 'http://localhost:5173', // dev
-                 // production domain
+                'https://eco-quest-7p8q.onrender.com', // production domain
             ]
 
             if(!origin || allowOrigins.indexOf(origin) !== -1){
