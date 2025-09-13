@@ -1,6 +1,8 @@
 
+
+
 import React, { createContext, useContext, useState, useEffect } from 'react'
-import { apiService } from '@/lib/api'
+import { apiService } from '@/lib/api.js'
 
 const AuthContext = createContext({})
 
@@ -23,15 +25,15 @@ export const AuthProvider = ({ children }) => {
   const checkAuth = async () => {
     try {
       const response = await apiService.checkAuth()
-      if (response.success) {
+      if (response.success && response.user) {
         setUser(response.user)
       } else {
         setUser(null)
       }
     } catch (error) {
-      // Axios errors have error.response
-      if (error.response?.status === 401) {
-        setUser(null) // not logged in
+      // Handle different error scenarios
+      if (error.message.includes('401') || error.message.includes('Unauthorized')) {
+        setUser(null) // User not authenticated
       } else {
         console.error('Auth check failed:', error.message)
       }
@@ -44,14 +46,18 @@ export const AuthProvider = ({ children }) => {
     try {
       const response = await apiService.login(credentials)
       if (response.success) {
-        await checkAuth()
-        return { success: true }
+        if (response.user) {
+          setUser(response.user) // Set user from login response
+        } else {
+          await checkAuth() // Fallback to checkAuth if no user in response
+        }
+        return { success: true, message: response.message }
       }
       return { success: false, message: response.message }
     } catch (error) {
       return {
         success: false,
-        message: error.response?.data?.message || error.message,
+        message: error.message || 'Login failed',
       }
     }
   }
@@ -60,14 +66,18 @@ export const AuthProvider = ({ children }) => {
     try {
       const response = await apiService.register(userData)
       if (response.success) {
-        await checkAuth() // Auto-login after registration
+        if (response.user) {
+          setUser(response.user) // Set user from register response
+        } else {
+          await checkAuth() // Fallback to checkAuth if no user in response
+        }
         return { success: true, message: response.message }
       }
       return { success: false, message: response.message }
     } catch (error) {
       return {
         success: false,
-        message: error.response?.data?.message || error.message,
+        message: error.message || 'Registration failed',
       }
     }
   }
@@ -75,10 +85,37 @@ export const AuthProvider = ({ children }) => {
   const logout = async () => {
     try {
       await apiService.logout()
+      setUser(null)
+      return { success: true, message: 'Logged out successfully' }
     } catch (error) {
       console.error('Logout error:', error.message)
-    } finally {
-      setUser(null) // Always clear user state
+      setUser(null) // Always clear user state even if logout request fails
+      return { success: false, message: error.message }
+    }
+  }
+
+  // Password reset methods
+  const sendResetOtp = async (email) => {
+    try {
+      const response = await apiService.sendResetOtp(email)
+      return { success: response.success, message: response.message }
+    } catch (error) {
+      return {
+        success: false,
+        message: error.message || 'Failed to send reset OTP',
+      }
+    }
+  }
+
+  const resetPassword = async (resetData) => {
+    try {
+      const response = await apiService.resetPassword(resetData)
+      return { success: response.success, message: response.message }
+    } catch (error) {
+      return {
+        success: false,
+        message: error.message || 'Password reset failed',
+      }
     }
   }
 
@@ -89,7 +126,13 @@ export const AuthProvider = ({ children }) => {
     login,
     logout,
     checkAuth,
+    sendResetOtp,
+    resetPassword,
     isAuthenticated: !!user,
+    // Helper properties
+    userName: user?.name,
+    userEmail: user?.email,
+    userId: user?.id,
   }
 
   return (

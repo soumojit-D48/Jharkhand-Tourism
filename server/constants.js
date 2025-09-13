@@ -1,1 +1,1 @@
-export const DB_NAME = "ai-for-fermers"
+export const DB_NAME = "Jharkhand-Tourism"

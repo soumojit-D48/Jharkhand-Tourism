@@ -1,4 +1,6 @@
 
+
+
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
@@ -8,34 +10,23 @@ import {
   MapPin,
   Users,
   LogOut,
-  Mail,
   User,
   ChevronDown,
   Globe,
-  HelpCircle,
   CloudSun,
   Bot,
 } from "lucide-react";
 import { useAuth } from "@/context/AuthContext";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { toast } from "sonner";
-// import { useTheme } from "@/context/ThemeContext";
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [showUserMenu, setShowUserMenu] = useState(false);
-  // const { theme, toggleTheme } = useTheme();
 
   const navigate = useNavigate();
   const { user, logout } = useAuth();
   const location = useLocation();
-
-  // const navigationItems = [
-  //   { name: "Eco Tourism", href: "/eco", icon: TreePine },
-  //   { name: "Cultural Sites", href: "/cultural", icon: Users },
-  //   { name: "Destinations", href: "/destinations", icon: MapPin },
-  //   { name: "Gallery", href: "/gallery", icon: Camera },
-  // ];
 
   const navigationItems = [
     { name: "Cultural Sites", href: "/culture", icon: Users },
@@ -47,23 +38,17 @@ const Navbar = () => {
 
   const handleLogout = async () => {
     try {
-      await logout();
-      toast.success("Logged out successfully!");
-      navigate("/");
+      const result = await logout();
+      if (result.success) {
+        toast.success("Logged out successfully!");
+        navigate("/");
+      } else {
+        toast.error(result.message || "Failed to logout");
+      }
       setShowUserMenu(false);
     } catch (error) {
       toast.error("Failed to logout");
-    }
-  };
-
-  const sendVerificationOtp = async () => {
-    try {
-      // this function in your AuthContext
-      // await sendVerifyOtp();
-      toast.success("Verification email sent!");
       setShowUserMenu(false);
-    } catch (error) {
-      toast.error("Failed to send verification email");
     }
   };
 
@@ -72,10 +57,6 @@ const Navbar = () => {
   };
 
   return (
-    // <nav className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 shadow-sm">
-    // <nav className="sticky top-0 z-50 w-full border-b shadow-sm
-    //             bg-gradient-to-r from-purple-500 via-pink-500 to-red-500
-    //             text-white backdrop-blur supports-[backdrop-filter]:bg-opacity-60">
     <nav
       className="sticky top-0 z-50 w-full border-b shadow-sm
                 bg-gradient-to-r from-green-200 via-teal-100 to-blue-100
@@ -87,14 +68,14 @@ const Navbar = () => {
           <Link
             onClick={() => {
               navigate("/");
-              window.scrollTo(0, 0); // scrolls to top
+              window.scrollTo(0, 0);
             }}
             to="/"
             className="flex items-center space-x-2 hover:opacity-80 transition-opacity"
           >
             <Mountain className="h-8 w-8 text-primary" />
             <div className="flex flex-col">
-              <span className="text-lg font-bold text-foreground ">
+              <span className="text-lg font-bold text-foreground">
                 Jharkhand
               </span>
               <span className="text-xs text-red">Eco Quest</span>
@@ -103,24 +84,6 @@ const Navbar = () => {
 
           {/* Desktop Navigation */}
           <div className="hidden md:flex items-center space-x-8">
-            {/* {navigationItems.map((item) => {
-              const Icon = item.icon;
-              return (
-                <Link
-                onClick={() => {
-            navigate("/");
-            window.scrollTo(0, 0); // scrolls to top
-          }}
-                  key={item.name}
-                  to={item.href}
-                  className="flex items-center space-x-2 text-sm font-medium text-muted-foreground hover:text-primary transition-colors duration-200 py-2 px-3 rounded-md hover:bg-muted/50"
-                >
-                  <Icon className="h-4 w-4" />
-                  <span>{item.name}</span>
-                </Link>
-              );
-            })} */}
-
             {navigationItems.map((item) => {
               const Icon = item.icon;
               const isActive = location.pathname === item.href;
@@ -133,7 +96,7 @@ const Navbar = () => {
                   className={`flex items-center space-x-2 text-sm font-medium py-2 px-3 rounded-md transition-colors duration-200
         ${
           isActive
-            ? "text-blue-600 bg-gray-200" // active 
+            ? "text-blue-600 bg-gray-200"
             : "text-gray-600 hover:text-blue-600 hover:bg-gray-100"
         }`}
                 >
@@ -143,13 +106,6 @@ const Navbar = () => {
               );
             })}
           </div>
-
-          {/* <button
-      onClick={toggleTheme}
-      className="p-2 rounded-xl border shadow bg-gray-200 dark:bg-gray-800"
-    >
-      {theme === "light" ? "🌙 Dark" : "☀️ Light"}
-    </button> */}
 
           {/* Desktop Auth Section */}
           <div className="hidden md:flex items-center">
@@ -185,16 +141,6 @@ const Navbar = () => {
                         {user.email}
                       </p>
                     </div>
-
-                    {!user.isAccountVerified && (
-                      <button
-                        onClick={sendVerificationOtp}
-                        className="w-full flex items-center space-x-2 px-3 py-2 text-sm text-amber-600 hover:bg-muted transition-colors duration-200"
-                      >
-                        <Mail className="h-4 w-4" />
-                        <span>Verify Email</span>
-                      </button>
-                    )}
 
                     <button
                       onClick={handleLogout}
@@ -243,7 +189,7 @@ const Navbar = () => {
                   <div className="flex flex-col">
                     <span className="font-bold text-foreground">Jharkhand</span>
                     <span className="text-xs text-muted-foreground">
-                      Eco Tourism
+                      Eco Quest
                     </span>
                   </div>
                 </div>
@@ -285,18 +231,6 @@ const Navbar = () => {
                           </p>
                         </div>
                       </div>
-
-                      {!user.isAccountVerified && (
-                        <Button
-                          variant="outline"
-                          size="sm"
-                          onClick={sendVerificationOtp}
-                          className="w-full justify-start text-amber-600 border-amber-200 hover:bg-amber-50"
-                        >
-                          <Mail className="h-4 w-4 mr-2" />
-                          Verify Email
-                        </Button>
-                      )}
 
                       <Button
                         variant="outline"
