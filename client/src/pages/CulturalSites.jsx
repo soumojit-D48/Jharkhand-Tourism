@@ -5,7 +5,7 @@ import { Play, Calendar, Users, Award, ArrowLeft, MapPin, Clock, Star } from 'lu
 import { Link } from 'react-router-dom';
 import { culturalHighlights } from '@/data';
 import CulturalSection from '@/components/CulturalSection';
-import CurlturalFestivals from '@/components/cultural/curlturalFestivals';
+import CurlturalFestivals from '@/components/cultural/CurlturalFestivals';
 
 const Culture = () => {
   
