@@ -14,7 +14,7 @@ import Destination from './pages/Destination';
 import AskMe from './pages/AskMe';
 import Player from './pages/Player';
 import WeatherPage from './pages/WeatherPage';
-import MapPage from './pages/MapPage';
+import MapPage from './pages/Map'
 import CulturalSites from './pages/CulturalSites';
 import ForgotPassword from './pages/ForgotPassword';
 import Layout from './components/layout/LayoutComp';
