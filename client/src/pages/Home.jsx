@@ -1,4 +1,4 @@
-import CommentSection from '@/components/commentSection'
+import CommentSection from '@/components/CommentSection'
 import CulturalSection from '@/components/CulturalSection'
 import DestinationsSection from '@/components/DestinationSection'
 import FeaturesSection from '@/components/FeatureSection'
