@@ -1,3 +1,5 @@
+import {AlertCircle} from 'lucide-react'
+
 
 const ErrorMessage = ({ message, onRetry }) => (
     <div className="min-h-screen bg-gradient-to-br from-red-900 via-red-800 to-red-900 flex items-center justify-center">

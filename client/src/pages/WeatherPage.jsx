@@ -6,8 +6,9 @@ import CurrentWeather from '../components/weather/CurrentWeather';
 import WeatherCard from '../components/weather/WeatherCard';
 import AirQuality from '../components/weather/AirQuality';
 import TourismTip from '../components/weather/TourismTip';
-import Loading from '../components/weather/Loading';
+// import Loading from '../components/weather/Loading';
 import ErrorMessage from '../components/weather/ErrorMessage';
+import LoadingSpinner from '../components/layout/LoadingSpinner'
 
 const WeatherPage = () => {
   const [weatherData, setWeatherData] = useState(null);
@@ -42,7 +43,7 @@ const WeatherPage = () => {
     return () => clearInterval(interval);
   }, []);
 
-  if (loading) return <Loading />;
+  if (loading) return <LoadingSpinner />;
   if (error) return <ErrorMessage message={error} onRetry={fetchWeather} />;
   if (!weatherData) return <ErrorMessage message="No weather data available" onRetry={fetchWeather} />;
 

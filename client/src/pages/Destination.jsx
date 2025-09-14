@@ -80,14 +80,40 @@ const Destinations = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50 space-x-2">
+    <div className="min-h-screen bg-gray-50 ">
       {/* Header Section */}
       <div className="bg-gradient-to-t from-emerald-600 to-blue-500 text-white py-16 px-4">
         <div className="relative max-w-7xl mx-auto text-center">
-        <Link to="/" className="absolute m-[-50px] top-0 left-[-35px]  inline-flex items-center text-yellow-200 hover:text-white mb-6 transition-colors">
+        {/* <Link to="/" className="absolute lg:m-[-50px] top-0 lg:left-[-35px]  inline-flex items-center text-yellow-200 hover:text-white mb-6 transition-colors">
               <ArrowLeft className="h-4 w-4 mr-2" />
               Back to Home
-            </Link>
+            </Link> */}
+
+            {/* <Link
+  to="/"
+  className="
+    inline-flex items-center top-0 text-yellow-200 hover:text-white mb-6 transition-colors
+    lg:absolute lg:m-[-50px] lg:top-0 lg:left-[-35px]
+  "
+>
+  <ArrowLeft className="h-4 w-4 mr-2" />
+  Back to Home
+</Link> */}
+
+
+<Link
+  to="/"
+  className="
+    absolute top-[-45px] left-[-10px]
+    lg:top-0 lg:left-[-35px] lg:m-[-50px]
+    inline-flex items-center text-yellow-200 hover:text-white mb-6 transition-colors
+  "
+>
+  <ArrowLeft className="h-4 w-4 mr-2" />
+  Back to Home
+</Link>
+
+            
           <h1 className="text-4xl md:text-5xl font-bold mb-4">
             Explore Jharkhand's Treasures
           </h1>

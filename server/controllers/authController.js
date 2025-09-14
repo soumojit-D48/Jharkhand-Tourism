@@ -9,8 +9,13 @@ import {
     WELCOME_EMAIL_TEMPLATE,
     PASSWORD_RESET_TEMPLATE
 } from '../config/emailTemplate.js'
+//./path/to/enhanced-templates.js
 
 
+
+// import {
+    
+// } from './path/to'
 
 const register = async (req, res) => {
     const { name, email, password } = req.body
@@ -69,15 +74,32 @@ const register = async (req, res) => {
             
         //     await transporter.sendMail(mailOptions);
 
+        // const mailOptions = {
+        //         // from: process.env.SENDER_EMAIL,
+        //         // from: "soumyajitdas105@gmail.com",
+        //         from: {
+        //             name: 'Eco Quest',
+        //             address: process.env.SENDER_EMAIL
+        //         },
+        //         to: user.email,
+        //         subject: 'Welcome to Our Platform!',
+        //         html: WELCOME_EMAIL_TEMPLATE
+        //             .replace("{{name}}", user.name)
+        //             .replace("{{email}}", user.email)
+        //     };
+
+
         const mailOptions = {
-                from: process.env.SENDER_EMAIL,
-                // from: "soumyajitdas105@gmail.com",
-                to: user.email,
-                subject: 'Welcome to Our Platform!',
-                html: WELCOME_EMAIL_TEMPLATE
-                    .replace("{{name}}", user.name)
-                    .replace("{{email}}", user.email)
-            };
+    from: {
+        name: 'Eco Quest',  
+        address: process.env.SENDER_EMAIL
+    },
+    to: user.email,
+    subject: 'Welcome to Eco Quest Jharkhand - Your Sustainable Tourism Journey Begins! 🌿',
+    html: WELCOME_EMAIL_TEMPLATE
+        .replace(/{{name}}/g, user.name || 'Explorer')  // Global replace + fallback
+        .replace(/{{email}}/g, user.email)
+};
 
             await transporter.sendMail(mailOptions);
 

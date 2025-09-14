@@ -3,6 +3,7 @@
 import AiHeader from "@/components/aiComponents/AiHeader";
 import AiChat from "@/components/aiComponents/AiChat";
 import AiFeatures from "@/components/aiComponents/AiFeatures";
+import LoadingSpinner from "@/components/layout/LoadingSpinner";
 
 const AskMe = () => {
 
