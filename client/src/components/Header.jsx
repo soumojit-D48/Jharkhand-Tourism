@@ -14,14 +14,14 @@ const HeaderSlider = () => {
   const navigate = useNavigate()
 
   // Auto-play functionality
-  // useEffect(() => {
+  useEffect(() => {
     
-  //   const interval = setInterval(() => {
-  //     setCurrentSlide((prev) => (prev + 1) % slides.length);
-  //   }, 5000);
+    const interval = setInterval(() => {
+      setCurrentSlide((prev) => (prev + 1) % slides.length);
+    }, 7000);
     
-  //   return () => clearInterval(interval);
-  // }, [slides.length]);
+    return () => clearInterval(interval);
+  }, [slides.length]);
 
   // Image preloading for smoother transitions
   useEffect(() => {
