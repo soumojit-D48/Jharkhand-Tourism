@@ -70,12 +70,12 @@ const CulturalSection = () => {
             and stay with local families for an authentic tribal experience.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Button size="lg" className="bg-amber-700 text-primary-foreground border-0 hover:shadow-glow">
+            {/* <Button size="lg" className="bg-amber-700 text-primary-foreground border-0 hover:shadow-glow">
               Book Cultural Tour
             </Button>
             <Button size="lg" variant="outline" className="hover:bg-accent hover:text-accent-foreground">
               View Festival Calendar
-            </Button>
+            </Button> */}
           </div>
         </div>
       </div>

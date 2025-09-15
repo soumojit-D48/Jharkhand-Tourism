@@ -26,7 +26,7 @@ const WildlifeSection = () => {
     // <section id="wildlife" className="py-20 bg-gradient-to-br from-gray-900 via-green-900 to-emerald-700">
     <section
       id="wildlife"
-      className="py-20 bg-gradient-to-br from-emerald-200 via-green-300 to-teal-400"
+      className="py-15 bg-gradient-to-br from-emerald-200 via-green-300 to-teal-400"
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
@@ -64,7 +64,7 @@ const WildlifeSection = () => {
         </div>
 
         {/* Wildlife Sanctuaries */}
-        <div className="mb-16 ">
+        <div className="mb-13 ">
           <h3 className="text-2xl font-bold text-foreground mb-8 text-center">
             Major Wildlife Sanctuaries
           </h3>
@@ -203,7 +203,7 @@ const WildlifeSection = () => {
             preservation. Learn how you can become a conservation ambassador for
             Jharkhand's incredible biodiversity.
           </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
+          {/* <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Button
               size="lg"
               className="bg-green-400 text-grey border-0 hover:bg-green-500"
@@ -218,7 +218,7 @@ const WildlifeSection = () => {
             >
               Learn Conservation
             </Button>
-          </div>
+          </div> */}
         </div>
       </div>
     </section>

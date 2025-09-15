@@ -94,54 +94,124 @@
 
 // header slider data
 
-export const slides = [
-    {
-      id: 1,
-      image: "https://img.freepik.com/premium-photo/patratu-valley-ranchi-beautiful-place-jharkhand_459244-239.jpg",
-      title: "Discover Jharkhand's Natural Beauty",
-      subtitle: "Explore pristine forests and wildlife sanctuaries",
-      location: "Patratu Valley, Ranchi",
-      rating: 4.8,
-      highlights: ["Hill Station", "Photography", "Adventure"]
-    },
-    {
-      id: 2,
-      image: "https://img.freepik.com/premium-photo/dassam-water-falls-bundu-ranchi-jharkhand_193751-27.jpg",
-      title: "Rich Cultural Heritage",
-      subtitle: "Experience traditional festivals and tribal art",
-      location: "Dassam Falls, Ranchi",
-      rating: 4.7,
-      highlights: ["Waterfalls", "Culture", "Trekking"]
-    },
-    {
-      id: 3,
-      image: "https://www.indiatravel.app/wp-content/uploads/2024/03/places-to-visit-in-jharkhand.jpg",
-      title: "Majestic Waterfalls",
-      subtitle: "Visit stunning cascades and natural wonders",
-      location: "Hundru Falls, Jharkhand",
-      rating: 4.9,
-      highlights: ["Nature", "Scenic Views", "Monsoon Special"]
-    },
-    {
-      id: 4,
-      image: "https://www.godigit.com/content/dam/godigit/directportal/en/contenthm/ghatshila-image.jpg",
-      title: "Wildlife Adventures",
-      subtitle: "Encounter diverse flora and fauna in their habitat",
-      location: "Ghatshila, East Singhbhum",
-      rating: 4.6,
-      highlights: ["Wildlife", "Safari", "Bird Watching"]
-    },
-    {
-      id: 5,
-      image: "https://ak0.picdn.net/shutterstock/videos/31954030/thumb/1.jpg?i10c=img.resize(height:160)",
-      title: "Eco-Tourism Paradise",
-      subtitle: "Sustainable travel through untouched landscapes",
-      location: "Various Eco Zones",
-      rating: 4.8,
-      highlights: ["Eco-Tourism", "Sustainability", "Adventure"]
-    }
-  ];
+// https://discoverindiabycar.com/wp-content/uploads/2024/07/Betla-National-park-welcomes-you-for-ultimate-thrilling-journey-03.jpg
+// export const slides = [
+//     {
+//       id: 1,
+//       // image: "https://img.freepik.com/premium-photo/patratu-valley-ranchi-beautiful-place-jharkhand_459244-239.jpg",
+//       image: "https://discoverindiabycar.com/wp-content/uploads/2024/07/Betla-National-park-welcomes-you-for-ultimate-thrilling-journey-03.jpg",
+//       title: "Discover Jharkhand's Natural Beauty",
+//       subtitle: "Explore pristine forests and wildlife sanctuaries",
+//       location: "Patratu Valley, Ranchi",
+//       rating: 4.8,
+//       highlights: ["Hill Station", "Photography", "Adventure"]
+//     },
+//     {
+//       id: 2,
+//       image: "https://img.freepik.com/premium-photo/dassam-water-falls-bundu-ranchi-jharkhand_193751-27.jpg",
+//       title: "Rich Cultural Heritage",
+//       subtitle: "Experience traditional festivals and tribal art",
+//       location: "Dassam Falls, Ranchi",
+//       rating: 4.7,
+//       highlights: ["Waterfalls", "Culture", "Trekking"]
+//     },
+//     {
+//       id: 3,
+//       image: "https://www.indiatravel.app/wp-content/uploads/2024/03/places-to-visit-in-jharkhand.jpg",
+//       title: "Majestic Waterfalls",
+//       subtitle: "Visit stunning cascades and natural wonders",
+//       location: "Hundru Falls, Jharkhand",
+//       rating: 4.9,
+//       highlights: ["Nature", "Scenic Views", "Monsoon Special"]
+//     },
+//     {
+//       id: 4,
+//       image: "https://www.godigit.com/content/dam/godigit/directportal/en/contenthm/ghatshila-image.jpg",
+//       title: "Wildlife Adventures",
+//       subtitle: "Encounter diverse flora and fauna in their habitat",
+//       location: "Ghatshila, East Singhbhum",
+//       rating: 4.6,
+//       highlights: ["Wildlife", "Safari", "Bird Watching"]
+//     },
+//     {
+//       id: 5,
+//       image: "https://ak0.picdn.net/shutterstock/videos/31954030/thumb/1.jpg?i10c=img.resize(height:160)",
+//       title: "Eco-Tourism Paradise",
+//       subtitle: "Sustainable travel through untouched landscapes",
+//       location: "Various Eco Zones",
+//       rating: 4.8,
+//       highlights: ["Eco-Tourism", "Sustainability", "Adventure"]
+//     }
+//   ];
 
+
+
+export const slides = [
+  {
+    id: 1,
+    image: "https://discoverindiabycar.com/wp-content/uploads/2024/07/Betla-National-park-welcomes-you-for-ultimate-thrilling-journey-03.jpg",
+    title: "Explore Patratu Valley",
+    subtitle: "Beautiful hills and breathtaking valley views",
+    location: "Patratu Valley, Ranchi",
+    rating: 4.8,
+    highlights: ["Hill Station", "Photography", "Adventure"]
+  },
+  {
+    id: 2,
+    image: "https://cdn1.prayagsamagam.com/media/2023/01/25183337/Baidyanath-Dham-1-1024x576.webp",
+    title: "Rich Cultural Heritage",
+    subtitle: "Pilgrimage, traditions, and vibrant tribal culture",
+    location: "Baidyanath Dham, Deoghar",
+    rating: 4.9,
+    highlights: ["Pilgrimage", "Festivals", "Culture"]
+  },
+  {
+    id: 3,
+    image: "https://dynamic-media-cdn.tripadvisor.com/media/photo-o/15/48/68/f4/dassam-falls.jpg?w=1400&h=800&s=1",
+    title: "Majestic Dassam Falls",
+    subtitle: "Cascading waters and monsoon magic",
+    location: "Dassam Falls, Ranchi",
+    rating: 4.7,
+    highlights: ["Waterfalls", "Trekking", "Nature"]
+  },
+  {
+    id: 4,
+    image: "https://latehartourism.com/wp-content/uploads/2018/10/maim-59.jpg",
+    title: "Wildlife at Betla Park",
+    subtitle: "Thrilling safari and rich biodiversity",
+    location: "Betla National Park, Latehar",
+    rating: 4.8,
+    highlights: ["Wildlife", "Safari", "Bird Watching"]
+  },
+  {
+    id: 5,
+    image: "https://images.travelandleisureasia.com/wp-content/uploads/sites/2/2022/12/20130020/netarhat-1.jpeg",
+    title: "Eco-Tourism at Netarhat",
+    subtitle: "Queen of Chotanagpur with scenic sunsets",
+    location: "Netarhat, Latehar",
+    rating: 4.8,
+    highlights: ["Eco-Tourism", "Hill Station", "Adventure"]
+  },
+  {
+    id: 6,
+    image: "https://www.tatasteel.com/investors/integrated-report-2023-24/images/climate-img8.jpg",
+    title: "Industrial Hub Jamshedpur",
+    subtitle: "Steel city with modern lifestyle and greenery",
+    location: "Jubilee Park, Jamshedpur",
+    rating: 4.7,
+    highlights: ["Industry", "Modern City", "Gardens"]
+  },
+  {
+    id: 7,
+    image: "https://images-prd.deshabhimani.com/sarhu-1743513201806-8fc93e59-5702-4998-967f-635e1182e8ba-900x506.webp",
+    title: "Tribal Culture and Dance",
+    subtitle: "Experience traditional folk art and festivals",
+    location: "Tribal Villages, Jharkhand",
+    rating: 4.8,
+    highlights: ["Culture", "Dance", "Festivals"]
+  },
+  
+];
 
 
 
@@ -165,7 +235,7 @@ export const culturalHighlights = [
     description: "Harvest festival featuring the sacred Karma tree worship with folk dances and music.",
     date: "August - September",
     participants: "40+ Communities",
-    image: "https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=500&h=300&fit=crop",
+    image: "https://media.assettype.com/deccanherald%2F2023-09%2Ff61050b3-c4c3-42a2-8e02-ad6863fbe292%2FPTI09_25_2023_000235B.jpg",
     duration: "2 Days",
     location: "Rural Areas",
     ytKey: "shorts/defaultKey"
@@ -176,7 +246,7 @@ export const culturalHighlights = [
     description: "Intricate handwoven textiles, bamboo crafts, and traditional pottery by skilled artisans.",
     date: "Year Round",
     participants: "200+ Artisans",
-    image: "https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?w=500&h=300&fit=crop",
+    image: "https://media.licdn.com/dms/image/v2/C5112AQEd7c-CvMxhBA/article-cover_image-shrink_600_2000/article-cover_image-shrink_600_2000/0/1545133179979?e=2147483647&v=beta&t=9LG_Z4gUJwRJfkPb96hwUl5TdHdh2fiIe5b0vbVtNsQ",
     duration: "Ongoing",
     location: "Craft Villages",
     ytKey: "shorts/TdboRQvRtII"
@@ -187,7 +257,7 @@ export const culturalHighlights = [
     description: "Traditional hunting festival marking the end of monsoon with community celebrations.",
     date: "September - October",
     participants: "25+ Villages",
-    image: "https://media.assettype.com/outlooktraveller%2Fimport%2Foutlooktraveller%2Fpublic%2Fuploads%2Farticles%2Fexplore%2FSarhul.jpg?w=1200&ar=40%3A21&auto=format%2Ccompress&ogImage=true&mode=crop&enlarge=true&overlay=false&overlay_position=bottom&overlay_width=100",
+    image: "https://s3.youthkiawaaz.com/wp-content/uploads/2019/09/10151012/Prashant-Thumb-91.jpg",
     duration: "1 Day",
     location: "Forest Areas",
     ytKey: "shorts/defaultKey"
@@ -198,7 +268,7 @@ export const culturalHighlights = [
     description: "Winter harvest celebration with traditional songs, dances and colorful decorations.",
     date: "December - January",
     participants: "60+ Communities",
-    image: "https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=500&h=300&fit=crop",
+    image: "https://utsav.gov.in/public/uploads/event_picture_image/event_686/16607352252119234166.jpg?w=500&h=300&fit=crop",
     duration: "15 Days",
     location: "Villages",
     ytKey: "shorts/defaultKey"
@@ -209,7 +279,7 @@ export const culturalHighlights = [
     description: "Centuries-old musical heritage featuring traditional instruments and storytelling ballads.",
     date: "Cultural Events",
     participants: "30+ Music Groups",
-    image: "https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?w=500&h=300&fit=crop",
+    image: "https://blogmedia.testbook.com/blog/wp-content/uploads/2023/07/folk-music-of-jharkhand-4ecee82c.jpg",
     duration: "Varies",
     location: "Cultural Centers",
     ytKey: "shorts/QSFqRN8os8g"
@@ -357,7 +427,7 @@ export const touristSpotsMap = [
 
 
 
-// wind life home page -->
+// wild life home page -->
 
 export const sanctuaries = {
   betla: {
@@ -384,7 +454,7 @@ export const sanctuaries = {
     ],
     bestTime: "October - March",
     image:
-      "https://india-tours.com/wildlife/images/wildlife/national-parks/betla-national-park.jpg"
+      "https://www.hlimg.com/images/things2do/738X538/betla_1510594148t.jpg"
   },
   palamu: {
     name: "Palamu Tiger Reserve",
@@ -405,7 +475,7 @@ export const sanctuaries = {
     ],
     bestTime: "November - April",
     image:
-      "https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=500&h=300&fit=crop",
+      "https://www.india-tours.com/wildlife/images/wildlife/national-parks/palamau-tiger-reserve.jpg?w=500&h=300&fit=crop",
   },
 };
 
@@ -444,7 +514,7 @@ export const stories = [
     role: "Traditional Craft Artisan",
     village: "Khunti Village",
     story: "Tourism has helped preserve our ancient bamboo weaving techniques. Young people are now learning these skills and earning livelihoods while keeping our culture alive.",
-    image: "https://india-tours.com/wildlife/images/wildlife/national-parks/betla-national-park.jpg",
+    image: "https://sadgirldp.com/wp-content/uploads/No-Dp-Black.jpeg",
     impact: "Trained 25+ youth in traditional crafts",
     rating: 5
   },
@@ -454,7 +524,7 @@ export const stories = [
     role: "Community Homestay Host",
     village: "Betla Region",
     story: "Hosting tourists in our homestay has not only improved our family's income but also created cultural exchange. Visitors learn about our traditions while we learn about the world.",
-    image: "https://india-tours.com/wildlife/images/wildlife/national-parks/betla-national-park.jpg",
+    image: "https://sadgirldp.com/wp-content/uploads/No-Dp-Black.jpeg",
     impact: "Hosted 200+ families from 15 countries",
     rating: 5
   },
@@ -464,7 +534,7 @@ export const stories = [
     role: "Eco-Guide & Forest Protector",
     village: "Palamu Forest Area",
     story: "As an eco-guide, I help tourists understand our forest ecosystem while ensuring wildlife protection. This work has made conservation profitable for our community.",
-    image: "https://india-tours.com/wildlife/images/wildlife/national-parks/betla-national-park.jpg",
+    image: "https://sadgirldp.com/wp-content/uploads/No-Dp-Black.jpeg",
     impact: "Guided 500+ wildlife tours safely",
     rating: 5
   },
@@ -487,7 +557,7 @@ export const destinationsPageData = [
     duration: "2-3 Days",
     rating: 4.8,
     reviews: 245,
-    image: "https://images.unsplash.com/photo-1516026672322-bc52d61a55d5?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2048&q=80",
+    image: "https://www.hlimg.com/images/things2do/738X538/betla_1510594148t.jpg",
     description: "Home to tigers, elephants, and diverse wildlife in pristine forest landscapes.",
     categories: ["wildlife", "nature"],
     tags: ["Tiger Safari", "Elephant Spotting", "Bird Watching"],
@@ -500,7 +570,7 @@ export const destinationsPageData = [
     duration: "1 Day",
     rating: 4.6,
     reviews: 189,
-    image: "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2048&q=80",
+    image: "https://i0.wp.com/indiain360.com/wp-content/uploads/2020/12/jonha-falls-jharkhand-tripinfi.jpg",
     description: "Spectacular 144-foot waterfall surrounded by lush green hills and tribal villages.",
     categories: ["nature", "adventure"],
     tags: ["Waterfall Trek", "Photography", "Tribal Culture"],
@@ -513,7 +583,7 @@ export const destinationsPageData = [
     duration: "1 Day",
     rating: 4.7,
     reviews: 312,
-    image: "https://images.unsplash.com/photo-1544551763-46a013bb70d5?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2048&q=80",
+    image: "https://media.assettype.com/outlookindia/import/uploadimage/library/16_9/16_9_5/IMAGE_1654581286.webp",
     description: "Majestic 320-foot waterfall cascading from great height, perfect for adventure enthusiasts.",
     categories: ["adventure", "nature"],
     tags: ["Rock Climbing", "Rappelling", "Nature Walk"],
@@ -526,7 +596,7 @@ export const destinationsPageData = [
     duration: "2 Days",
     rating: 4.5,
     reviews: 156,
-    image: "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2048&q=80",
+    image: "https://travelsetu.com/apps/uploads/new_destinations_photos/destination/2024/01/08/9b09e4f561e8dd2954b42774ecb0bae8_1000x1000.jpg",
     description: "Sacred Jain pilgrimage site with ancient temples and breathtaking hill views.",
     categories: ["heritage", "nature"],
     tags: ["Temple Visit", "Pilgrimage", "Trekking"],
@@ -539,7 +609,7 @@ export const destinationsPageData = [
     duration: "3-4 Days",
     rating: 4.9,
     reviews: 98,
-    image: "https://images.unsplash.com/photo-1578662996442-48f60103fc96?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2048&q=80",
+    image: "https://jharkhandstatenews.com/assets/admin/uploads/rchoice_img/206782_1507041151.jpg",
     description: "Experience authentic tribal culture, traditional dances, and local crafts.",
     categories: ["culture"],
     tags: ["Cultural Immersion", "Traditional Dance", "Handicrafts"],
@@ -552,7 +622,7 @@ export const destinationsPageData = [
     duration: "2 Days",
     rating: 4.4,
     reviews: 203,
-    image: "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2048&q=80",
+    image: "https://travelsetu.com/apps/uploads/new_destinations_photos/destination/2024/01/08/9ffc869f0419cc62a4e18896dc9b388b_1000x1000.jpg",
     description: "Queen of Chotanagpur known for stunning sunrise and sunset views.",
     categories: ["nature", "adventure"],
     tags: ["Sunrise View", "Hill Station", "Nature Photography"],
@@ -574,7 +644,7 @@ export const destinationsSectionData = [
     reviews: 245,
     category: "Wildlife",
     image:
-      "https://images.unsplash.com/photo-1547036967-23d11aacaee0?w=500&h=300&fit=crop",
+      "https://www.hlimg.com/images/things2do/738X538/betla_1510594148t.jpg",
     highlights: ["Tiger Safari", "Elephant Spotting", "Bird Watching"],
   },
   {
@@ -588,7 +658,7 @@ export const destinationsSectionData = [
     reviews: 189,
     category: "Nature",
     image:
-      "https://images.unsplash.com/photo-1508193638397-1c4234db14d8?w=500&h=300&fit=crop",
+      "https://i0.wp.com/indiain360.com/wp-content/uploads/2020/12/jonha-falls-jharkhand-tripinfi.jpg",
     highlights: ["Waterfall Trek", "Photography", "Tribal Culture"],
   },
   {
@@ -602,7 +672,7 @@ export const destinationsSectionData = [
     reviews: 312,
     category: "Adventure",
     image:
-      "https://images.unsplash.com/photo-1515187029135-18ee286d815b?w=500&h=300&fit=crop",
+      "https://media.assettype.com/outlookindia/import/uploadimage/library/16_9/16_9_5/IMAGE_1654581286.webp",
     highlights: ["Rock Climbing", "Rappelling", "Nature Walk"],
   },
   {
@@ -616,7 +686,7 @@ export const destinationsSectionData = [
     reviews: 156,
     category: "Culture",
     image:
-      "https://images.unsplash.com/photo-1595789672028-99ed8693c24b?w=500&h=300&fit=crop",
+      "https://im.hunt.in/cg/Ranchi/City-Guide/State-museum2.jpg?w=500&h=300&fit=crop",
     highlights: ["Tribal Art", "Cultural Shows", "Handicrafts"],
   },
   {
@@ -630,7 +700,7 @@ export const destinationsSectionData = [
     reviews: 198,
     category: "Wildlife",
     image:
-      "https://images.unsplash.com/photo-1602524206755-7fd2f7370031?w=500&h=300&fit=crop",
+      "https://www.india-tours.com/wildlife/images/wildlife/national-parks/palamau-tiger-reserve.jpg?w=500&h=300&fit=crop",
     highlights: ["Tiger Tracking", "Fort Exploration", "Bird Sanctuary"],
   },
   {
@@ -644,7 +714,7 @@ export const destinationsSectionData = [
     reviews: 267,
     category: "Heritage",
     image:
-      "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=500&h=300&fit=crop",
+      "https://media1.thrillophilia.com/filestore/b03q8ku36po31n2dg2kmamf2065h_1589282960_Tagore_Hill.jpg?w=1440&dpr=2",
     highlights: ["Literary Heritage", "Sunrise Views", "Peaceful Gardens"],
   },
 ];

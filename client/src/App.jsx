@@ -13,10 +13,12 @@ import NotFound from './pages/NotFound';
 import Destination from './pages/Destination';
 import AskMe from './pages/AskMe';
 import Player from './pages/Player';
-import WeatherPage from './pages/WeatherPage';
+// import WeatherPage from './pages/WeatherPage';
 import MapPage from './pages/Map'
 import CulturalSites from './pages/CulturalSites';
 import ForgotPassword from './pages/ForgotPassword';
+import WeatherForcast from './pages/WeatherForcast';
+
 import Layout from './components/layout/LayoutComp';
 import ProtectedRoute from './components/layout/ProtectRoute';
 import PublicRoute from './components/layout/PublicRoute';
@@ -98,8 +100,8 @@ function App() {
             </ProtectedRoute>
           }
         />
-        <Route
-          path="/weather"
+        {/* <Route
+          path="/weather2"
           element={
             <ProtectedRoute>
               <Layout>
@@ -107,7 +109,7 @@ function App() {
               </Layout>
             </ProtectedRoute>
           }
-        />
+        /> */}
         <Route
           path="/map"
           element={
@@ -124,6 +126,17 @@ function App() {
             <ProtectedRoute>
               <Layout>
                 <CulturalSites />
+              </Layout>
+            </ProtectedRoute>
+          }
+        />
+
+        <Route
+          path="/weather"
+          element={
+            <ProtectedRoute>
+              <Layout>
+                <WeatherForcast/>
               </Layout>
             </ProtectedRoute>
           }

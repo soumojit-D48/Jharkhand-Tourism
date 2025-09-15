@@ -129,14 +129,14 @@ const CommentSection = () => {
             Your visit directly supports local communities and helps preserve Jharkhand's cultural heritage. 
             Choose responsible tourism experiences that make a positive impact.
           </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
+          {/* <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Button size="lg" className="bg-black text-primary-foreground border-0 hover:shadow-xl">
               Support Communities
             </Button>
             <Button size="lg" variant="outline" className="hover:bg-gray hover:text-gray-700">
               Learn More Stories
             </Button>
-          </div>
+          </div> */}
         </div>
       </div>
     </section>
