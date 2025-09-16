@@ -3,7 +3,7 @@ function cofigureCors() {
     return ({
         origin: (origin, callBack) => {
             const allowOrigins = [
-                'http://localhost:5173', // dev
+                // 'http://localhost:5173', // dev
                 'https://eco-quest-7p8q.onrender.com', // production domain
             ]
 

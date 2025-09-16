@@ -150,7 +150,7 @@ export const slides = [
   {
     id: 1,
     image: "https://discoverindiabycar.com/wp-content/uploads/2024/07/Betla-National-park-welcomes-you-for-ultimate-thrilling-journey-03.jpg",
-    title: "Explore Patratu Valley",
+    title: "Discover Jharkhand's Natural Beauty",
     subtitle: "Beautiful hills and breathtaking valley views",
     location: "Patratu Valley, Ranchi",
     rating: 4.8,

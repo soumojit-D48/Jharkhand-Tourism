@@ -35,14 +35,28 @@
 //       return res.status(400).json({ success: false, message: "Prompt is required" });
 //     }
 
-//     const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
+//     const model = genAI.getGenerativeModel(
+//       // {model: "gemini-1.5-pro"}
+//       { 
+//       model: "gemini-1.5-flash-8k",
+//       generationConfig: {
+//         temperature: 0.7,
+//         maxOutputTokens: 100,
+//       }
+//     }
+//     );
 //     // const result = await model.generateContent(prompt);
 //     const result = await model.generateContent(
-//         `You are a tourism guide for Jharkhand. Answer clearly.\nUser: ${prompt}`
-//       );
+//         `You are a tourism guide for Jharkhand. Answer clearly. and not too long answers. \nUser: ${prompt}`
+//     );
       
 
-//     const text = result.response.text();
+//     let text = result.response.text();
+
+//     // text = text
+//     // .replace(/\*(.*?)\*/g, '$1')     // Remove *italic*
+
+
 //     res.json({ success: true, message: text });
 //   } catch (error) {
 //     console.error("Gemini Error:", error);
@@ -90,6 +104,7 @@ User question: ${prompt}
 Provide a helpful response about Jharkhand tourism:`;
 
     const result = await model.generateContent(enhancedPrompt);
+
     let text = result.response.text();
 
     // Clean up the response - remove markdown formatting
@@ -102,6 +117,11 @@ Provide a helpful response about Jharkhand tourism:`;
       // .replace(/`(.*?)`/g, '$1')       // Remove code backticks
       // .trim();
 
+      // let text = result?.response?.candidates?.[0]?.content?.parts?.[0]?.text || "";
+
+    // Clean up formatting
+    text = text.replace(/\*(.*?)\*/g, '$1');
+
     res.json({ success: true, message: text });
 
   } catch (error) {
@@ -112,3 +132,4 @@ Provide a helpful response about Jharkhand tourism:`;
     });
   }
 };
+
