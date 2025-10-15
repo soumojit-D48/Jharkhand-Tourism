@@ -63,11 +63,11 @@ function App() {
         <Route
           path="/"
           element={
-            <ProtectedRoute>
+            // <ProtectedRoute>
               <Layout>
                 <Home />
               </Layout>
-            </ProtectedRoute>
+            // </ProtectedRoute> 
           }
         />
         <Route
@@ -134,11 +134,11 @@ function App() {
         <Route
           path="/weather"
           element={
-            <ProtectedRoute>
+            // <ProtectedRoute>
               <Layout>
                 <WeatherForcast/>
               </Layout>
-            </ProtectedRoute>
+            // </ProtectedRoute> 
           }
         />
 
