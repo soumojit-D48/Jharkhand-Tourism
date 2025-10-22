@@ -11,6 +11,8 @@ import connectDB from "./config/dbConnect.js"
 import authRouter from "./routes/authRoutes.js"
 // import userRouter from "./routes/userRoutes.js"
 import AiRouter from "./routes/aiRoute.js"
+import adminRouter from "./routes/adminRoutes.js"
+import hotelRouter from './routes/hotelRoutes.js'
 
 // dotenv.config()
 const app = express()
@@ -27,6 +29,8 @@ app.get('/', (req, res) => res.send('api working fine'))
 app.use('/api/auth', authRouter)
 // app.use('/api/user', userRouter)
 app.use('/api/ai', AiRouter)
+app.use('/api/admin', adminRouter)
+app.use('/api/hotels', hotelRouter)
 
 
 

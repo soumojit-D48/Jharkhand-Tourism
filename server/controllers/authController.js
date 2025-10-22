@@ -14,7 +14,7 @@ import {
 
 
 // import {
-    
+
 // } from './path/to'
 
 const register = async (req, res) => {
@@ -54,60 +54,60 @@ const register = async (req, res) => {
         })
 
         // Send welcome email
-        try {
-            // const mailOptions = {
-            //     from: process.env.SENDER_EMAIL,
-            //     to: user.email,
-            //     subject: 'Welcome to Our Platform!',
-            //     html: WELCOME_EMAIL_TEMPLATE
-            //         .replace("{{name}}", user.name)
-            //         .replace("{{email}}", user.email)
-            //     // html: 
-            // };
+        // try {
+        //     // const mailOptions = {
+        //     //     from: process.env.SENDER_EMAIL,
+        //     //     to: user.email,
+        //     //     subject: 'Welcome to Our Platform!',
+        //     //     html: WELCOME_EMAIL_TEMPLATE
+        //     //         .replace("{{name}}", user.name)
+        //     //         .replace("{{email}}", user.email)
+        //     //     // html: 
+        //     // };
 
-        //     const mailOptions = { // obj
-        //     from: process.env.SENDER_EMAIL,
-        //     to: email, // it came from req.body
-        //     subject: "Welcome to our App!",
-        //     text: `Hi ${name},\n\nWelcome to our platform. Your email is successfully registered.\n\nRegards,\nTeam`
-        // }
-            
-        //     await transporter.sendMail(mailOptions);
+        //     //     const mailOptions = { // obj
+        //     //     from: process.env.SENDER_EMAIL,
+        //     //     to: email, // it came from req.body
+        //     //     subject: "Welcome to our App!",
+        //     //     text: `Hi ${name},\n\nWelcome to our platform. Your email is successfully registered.\n\nRegards,\nTeam`
+        //     // }
 
-        // const mailOptions = {
-        //         // from: process.env.SENDER_EMAIL,
-        //         // from: "soumyajitdas105@gmail.com",
+        //     //     await transporter.sendMail(mailOptions);
+
+        //     // const mailOptions = {
+        //     //         // from: process.env.SENDER_EMAIL,
+        //     //         // from: "soumyajitdas105@gmail.com",
+        //     //         from: {
+        //     //             name: 'Eco Quest',
+        //     //             address: process.env.SENDER_EMAIL
+        //     //         },
+        //     //         to: user.email,
+        //     //         subject: 'Welcome to Our Platform!',
+        //     //         html: WELCOME_EMAIL_TEMPLATE
+        //     //             .replace("{{name}}", user.name)
+        //     //             .replace("{{email}}", user.email)
+        //     //     };
+
+
+        //     const mailOptions = {
         //         from: {
         //             name: 'Eco Quest',
         //             address: process.env.SENDER_EMAIL
         //         },
         //         to: user.email,
-        //         subject: 'Welcome to Our Platform!',
+        //         subject: 'Welcome to Eco Quest Jharkhand - Your Sustainable Tourism Journey Begins! 🌿',
         //         html: WELCOME_EMAIL_TEMPLATE
-        //             .replace("{{name}}", user.name)
-        //             .replace("{{email}}", user.email)
+        //             .replace(/{{name}}/g, user.name || 'Explorer')  // Global replace + fallback
+        //             .replace(/{{email}}/g, user.email)
         //     };
 
+        //     await transporter.sendMail(mailOptions);
 
-        const mailOptions = {
-    from: {
-        name: 'Eco Quest',  
-        address: process.env.SENDER_EMAIL
-    },
-    to: user.email,
-    subject: 'Welcome to Eco Quest Jharkhand - Your Sustainable Tourism Journey Begins! 🌿',
-    html: WELCOME_EMAIL_TEMPLATE
-        .replace(/{{name}}/g, user.name || 'Explorer')  // Global replace + fallback
-        .replace(/{{email}}/g, user.email)
-};
 
-            await transporter.sendMail(mailOptions);
-
-        
-        } catch (emailError) {
-            console.log('Email sending failed:', emailError);
-            // Don't fail registration if email fails
-        }
+        // } catch (emailError) {
+        //     console.log('Email sending failed:', emailError);
+        //     // Don't fail registration if email fails
+        // }
 
         // Return user data without password
         const userData = {
@@ -117,7 +117,7 @@ const register = async (req, res) => {
         }
 
         res.status(201).json({
-            success: true, 
+            success: true,
             message: "Registration successful",
             user: userData
         })
@@ -172,7 +172,7 @@ const login = async (req, res) => {
             isAccountVerified: user.isAccountVerified
         }
 
-        return res.status(200).json({ 
+        return res.status(200).json({
             success: true,
             message: 'Login successful',
             user: userData
@@ -215,9 +215,9 @@ const isAuthenticated = async (req, res) => {
             isAccountVerified: user.isAccountVerified
         }
 
-        return res.status(200).json({ 
+        return res.status(200).json({
             success: true,
-            user: userData 
+            user: userData
         })
     } catch (error) {
         res.status(500).json({ success: false, message: error.message })

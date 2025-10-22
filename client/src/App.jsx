@@ -22,6 +22,10 @@ import WeatherForcast from './pages/WeatherForcast';
 import Layout from './components/layout/LayoutComp';
 import ProtectedRoute from './components/layout/ProtectRoute';
 import PublicRoute from './components/layout/PublicRoute';
+import HotelRoomCreation from './pages/CreateHotel';
+import AddMultipleRooms from './pages/AddRooms';
+import { AdminManagement } from './pages/AdminManage';
+import { RoleManagement } from './pages/RoleManage';
 
 function App() {
   return (
@@ -134,13 +138,61 @@ function App() {
         <Route
           path="/weather"
           element={
-            // <ProtectedRoute>
+            <ProtectedRoute>
               <Layout>
                 <WeatherForcast/>
               </Layout>
-            // </ProtectedRoute> 
+            </ProtectedRoute> 
           }
         />
+
+        
+
+        <Route
+          path="/create-hotel"
+          element={
+            <ProtectedRoute>
+              <Layout>
+                <HotelRoomCreation/>
+              </Layout>
+            </ProtectedRoute> 
+          }
+        />
+
+        <Route
+          path="/hotel/:hotelId/add-rooms"
+          element={
+            <ProtectedRoute>
+              <Layout>
+                <AddMultipleRooms/>
+              </Layout>
+            </ProtectedRoute> 
+          }
+        />
+
+
+        <Route
+          path="/admin-manage"
+          element={
+            <ProtectedRoute>
+              <Layout>
+                <AdminManagement/>
+              </Layout>
+            </ProtectedRoute> 
+          }
+        />
+
+        <Route
+          path="/role-manage"
+          element={
+            <ProtectedRoute>
+              <Layout>
+                <RoleManagement/>
+              </Layout>
+            </ProtectedRoute> 
+          }
+        />
+
 
         {/* 404 Route */}
         <Route

@@ -307,6 +307,254 @@ class ApiService {
       data: resetData, // { email, otp, newPassword }
     });
   }
+
+
+   // ============================================
+  // ADMIN - Role Management
+  // ============================================
+
+  async getPendingRequests() {
+    return this.request("/admin/pending-requests", {
+      method: "GET",
+    });
+  }
+
+  async approveRole(userId) {
+    return this.request(`/admin/approve/${userId}`, {
+      method: "PUT",
+    });
+  }
+
+  async rejectRole(userId) {
+    return this.request(`/admin/reject/${userId}`, {
+      method: "PUT",
+    });
+  }
+
+  async getAllAdmins() {
+    return this.request("/admin/get-admins", {
+      method: "GET",
+    });
+  }
+
+  async addAdmin(email) {
+    return this.request("/admin/add-admin", {
+      method: "POST",
+      data: { email },
+    });
+  }
+
+  async removeAdmin(userId) {
+    return this.request(`/admin/remove-admin/${userId}`, {
+      method: "DELETE",
+    });
+  }
+
+
+
+  // // ============================================
+  // // HOTELS - Public
+  // // ============================================
+
+  // async getAllHotels(params = {}) {
+  //   const queryString = new URLSearchParams(params).toString();
+  //   return this.request(`/hotels?${queryString}`, {
+  //     method: "GET",
+  //   });
+  // }
+
+  // async getHotelById(hotelId) {
+  //   return this.request(`/hotels/${hotelId}`, {
+  //     method: "GET",
+  //   });
+  // }
+
+  // async getHotelRooms(hotelId, params = {}) {
+  //   const queryString = new URLSearchParams(params).toString();
+  //   return this.request(`/hotels/${hotelId}/rooms?${queryString}`, {
+  //     method: "GET",
+  //   });
+  // }
+
+  // async getRoomById(roomId) {
+  //   return this.request(`/hotels/rooms/${roomId}`, {
+  //     method: "GET",
+  //   });
+  // }
+
+  // // ============================================
+  // // HOTELS - Manager Only
+  // // ============================================
+
+  // async createHotel(formData) {
+  //   return this.request("/hotels", {
+  //     method: "POST",
+  //     data: formData,
+  //     headers: {
+  //       "Content-Type": "multipart/form-data",
+  //     },
+  //   });
+  // }
+
+  // async getMyHotels(params = {}) {
+  //   const queryString = new URLSearchParams(params).toString();
+  //   return this.request(`/hotels/manager/my-hotels?${queryString}`, {
+  //     method: "GET",
+  //   });
+  // }
+
+  // async updateHotel(hotelId, formData) {
+  //   return this.request(`/hotels/${hotelId}`, {
+  //     method: "PUT",
+  //     data: formData,
+  //     headers: {
+  //       "Content-Type": "multipart/form-data",
+  //     },
+  //   });
+  // }
+
+  // async deleteHotelImage(hotelId, imageUrl) {
+  //   return this.request(`/hotels/${hotelId}/images`, {
+  //     method: "DELETE",
+  //     data: { imageUrl },
+  //   });
+  // }
+
+  // async deleteHotel(hotelId) {
+  //   return this.request(`/hotels/${hotelId}`, {
+  //     method: "DELETE",
+  //   });
+  // }
+
+  // // ============================================
+  // // ROOMS - Manager Only
+  // // ============================================
+
+  // async addRoom(hotelId, roomData) {
+  //   return this.request(`/hotels/${hotelId}/rooms`, {
+  //     method: "POST",
+  //     data: roomData,
+  //   });
+  // }
+
+  // async addMultipleRooms(hotelId, rooms) {
+  //   return this.request(`/hotels/${hotelId}/rooms/bulk`, {
+  //     method: "POST",
+  //     data: { rooms },
+  //   });
+  // }
+
+  // async updateRoom(roomId, roomData) {
+  //   return this.request(`/hotels/rooms/${roomId}`, {
+  //     method: "PUT",
+  //     data: roomData,
+  //   });
+  // }
+
+  // async deleteRoom(roomId) {
+  //   return this.request(`/hotels/rooms/${roomId}`, {
+  //     method: "DELETE",
+  //   });
+  // }
+
+
+
+
+  // ============================================
+  // HOTEL ROUTES
+  // ============================================
+
+  // Public Routes
+  async getAllHotels(params = {}) {
+    const queryString = new URLSearchParams(params).toString();
+    return this.request(`/hotels${queryString ? `?${queryString}` : ""}`);
+  }
+
+  async getHotelById(hotelId) {
+    return this.request(`/hotels/${hotelId}`);
+  }
+
+  // Manager Routes
+  async createHotel(formData) {
+    return this.request("/hotels", {
+      method: "POST",
+      data: formData,
+      headers: {
+        "Content-Type": "multipart/form-data",
+      },
+    });
+  }
+
+  async getMyHotels(params = {}) {
+    const queryString = new URLSearchParams(params).toString();
+    return this.request(`/hotels/manager/my-hotels${queryString ? `?${queryString}` : ""}`);
+  }
+
+  async updateHotel(hotelId, formData) {
+    return this.request(`/hotels/${hotelId}`, {
+      method: "PUT",
+      data: formData,
+      headers: {
+        "Content-Type": "multipart/form-data",
+      },
+    });
+  }
+
+  async deleteHotelImage(hotelId, imageUrl) {
+    return this.request(`/hotels/${hotelId}/images`, {
+      method: "DELETE",
+      data: { imageUrl },
+    });
+  }
+
+  async deleteHotel(hotelId) {
+    return this.request(`/hotels/${hotelId}`, {
+      method: "DELETE",
+    });
+  }
+
+  // ============================================
+  // ROOM ROUTES
+  // ============================================
+
+  // Public Routes
+  async getHotelRooms(hotelId, params = {}) {
+    const queryString = new URLSearchParams(params).toString();
+    return this.request(`/hotels/${hotelId}/rooms${queryString ? `?${queryString}` : ""}`);
+  }
+
+  async getRoomById(roomId) {
+    return this.request(`/hotels/rooms/${roomId}`);
+  }
+
+  // Manager Routes
+  async addRoom(hotelId, roomData) {
+    return this.request(`/hotels/${hotelId}/rooms`, {
+      method: "POST",
+      data: roomData,
+    });
+  }
+
+  async addMultipleRooms(hotelId, rooms) {
+    return this.request(`/hotels/${hotelId}/rooms/bulk`, {
+      method: "POST",
+      data: { rooms },
+    });
+  }
+
+  async updateRoom(roomId, roomData) {
+    return this.request(`/hotels/rooms/${roomId}`, {
+      method: "PUT",
+      data: roomData,
+    });
+  }
+
+  async deleteRoom(roomId) {
+    return this.request(`/hotels/rooms/${roomId}`, {
+      method: "DELETE",
+    });
+  }
+  
 }
 
 export const apiService = new ApiService();
