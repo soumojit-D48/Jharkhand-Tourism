@@ -10,7 +10,8 @@ import {
     addAdmin, 
     removeAdmin, 
     getAllAdmins,
-    removeManager
+    removeManager,
+    getAllManagers
 } from '../controllers/adminController.js';
 
 const router = express.Router();
@@ -19,6 +20,8 @@ const router = express.Router();
 router.get('/pending-requests', userAuth, authorize('admin'), getPendingRequests);
 router.put('/approve/:userId', userAuth, authorize('admin'), approveRole);
 router.put('/reject/:userId', userAuth, authorize('admin'), rejectRole);
+
+router.get('/get-managers', userAuth, authorize('admin'), getAllManagers);
 router.delete('/remove-manager/:userId', userAuth, authorize('admin'), removeManager);
 
 

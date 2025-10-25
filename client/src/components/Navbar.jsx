@@ -1,6 +1,3 @@
-
-
-
 // import { useState } from "react";
 // import { Button } from "@/components/ui/button";
 // import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
@@ -285,16 +282,6 @@
 
 // export default Navbar;
 
-
-
-
-
-
-
-
-
-
-
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
@@ -337,7 +324,7 @@ const Navbar = () => {
   ];
 
   // const isManager = user?.role === "manager" || user?.role === "admin";
-  const isManager = user?.role === "manager" 
+  const isManager = user?.role === "manager";
   const isAdmin = user?.role === "admin";
 
   const handleLogout = async () => {
@@ -503,6 +490,7 @@ const Navbar = () => {
                       <Settings className="h-4 w-4" />
                       <span>Admin Manage</span>
                     </Link>
+                    
                     <Link
                       to="/admin/role-manage"
                       onClick={handleNavLinkClick}
@@ -513,13 +501,13 @@ const Navbar = () => {
                     </Link>
 
                     <Link
-                            to="/admin/managers"
-                            onClick={handleNavLinkClick}
-                            className="flex items-center space-x-2 text-sm text-muted-foreground hover:text-primary py-2 px-2 rounded-md hover:bg-muted/50"
-                          >
-                            <Settings className="h-4 w-4" />
-                            <span>Hotel Managers</span>
-                          </Link>
+                      to="/admin/managers"
+                      className="flex items-center space-x-2 px-4 py-2 text-sm text-foreground hover:bg-muted transition-colors duration-200"
+                    >
+                      <Settings className="h-4 w-4" />
+                      <span>Hotel Managers</span>
+                    </Link>
+
                   </div>
                 )}
               </div>

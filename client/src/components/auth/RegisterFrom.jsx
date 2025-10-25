@@ -84,7 +84,7 @@
 //         toast.error(result.message || "Registration failed!");
 //       }
 //     }
-      
+
 //     catch (err) {
 //       toast.error("Something went wrong!");
 //     } finally {
@@ -188,11 +188,6 @@
 // };
 
 // export default RegisterFrom;
-
-
-
-
-
 
 // import React, { useState } from "react";
 // import { useNavigate, useLocation, Link } from "react-router-dom";
@@ -303,7 +298,7 @@
 //           <FormField
 //             name="password"
 //             control={form.control}
-//             rules={{ 
+//             rules={{
 //               required: "Password is required",
 //               minLength: {
 //                 value: 6,
@@ -345,10 +340,6 @@
 
 // export default RegisterForm;
 
-
-
-
-
 // import React, { useState } from "react";
 // import { useNavigate, Link } from "react-router-dom";
 // import { useForm } from "react-hook-form";
@@ -385,7 +376,7 @@
 //     setIsSubmitting(true);
 
 //     try {
-//       const result = await registerUser(data); 
+//       const result = await registerUser(data);
 
 //       if (result.success) {
 //         toast.success("Registration successful!");
@@ -492,32 +483,6 @@
 
 // export default RegisterForm;
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 // import React, { useState } from "react";
 // import { useNavigate, Link } from "react-router-dom";
 // import { useForm } from "react-hook-form";
@@ -584,7 +549,7 @@
 //           <FormField
 //             name="name"
 //             control={form.control}
-//             rules={{ 
+//             rules={{
 //               required: "Name is required",
 //               minLength: {
 //                 value: 2,
@@ -599,9 +564,9 @@
 //               <FormItem>
 //                 <FormLabel>Full Name</FormLabel>
 //                 <FormControl>
-//                   <Input 
-//                     placeholder="Enter your full name" 
-//                     {...field} 
+//                   <Input
+//                     placeholder="Enter your full name"
+//                     {...field}
 //                     disabled={isSubmitting}
 //                   />
 //                 </FormControl>
@@ -624,10 +589,10 @@
 //               <FormItem>
 //                 <FormLabel>Email Address</FormLabel>
 //                 <FormControl>
-//                   <Input 
-//                     type="email" 
-//                     placeholder="you@example.com" 
-//                     {...field} 
+//                   <Input
+//                     type="email"
+//                     placeholder="you@example.com"
+//                     {...field}
 //                     disabled={isSubmitting}
 //                   />
 //                 </FormControl>
@@ -655,10 +620,10 @@
 //                 <FormLabel>Password</FormLabel>
 //                 <FormControl>
 //                   <div className="relative">
-//                     <Input 
-//                       type={showPassword ? "text" : "password"} 
-//                       placeholder="Create a strong password" 
-//                       {...field} 
+//                     <Input
+//                       type={showPassword ? "text" : "password"}
+//                       placeholder="Create a strong password"
+//                       {...field}
 //                       disabled={isSubmitting}
 //                     />
 //                     <Button
@@ -682,14 +647,14 @@
 //             )}
 //           />
 //         {/*  bg-blue-600 hover:bg-blue-700 disabled:opacity-50 */}
-//           <Button 
-//             type="submit" 
-//             disabled={isSubmitting} 
+//           <Button
+//             type="submit"
+//             disabled={isSubmitting}
 //             className="w-full"
 //           >
 //             {isSubmitting ? (
 //               <>
-//                 <Loader2 className="mr-2 h-4 w-4 animate-spin" /> 
+//                 <Loader2 className="mr-2 h-4 w-4 animate-spin" />
 //                 Creating Account...
 //               </>
 //             ) : (
@@ -701,8 +666,8 @@
 
 //       <div className="text-center text-sm text-gray-600">
 //         Already have an account?{" "}
-//         <Link 
-//           to="/sign-in" 
+//         <Link
+//           to="/sign-in"
 //           className="text-blue-600 hover:text-blue-800 hover:underline font-medium"
 //         >
 //           Sign In
@@ -714,19 +679,188 @@
 
 // export default RegisterForm;
 
+// import React, { useState } from "react";
+// import { useNavigate, Link } from "react-router-dom";
+// import { useForm } from "react-hook-form";
+// import { toast } from "sonner";
+// import { useAuth } from "@/context/AuthContext";
+// import {
+//   Form,
+//   FormControl,
+//   FormField,
+//   FormItem,
+//   FormLabel,
+//   FormMessage,
+// } from "@/components/ui/form";
+// import { Button } from "@/components/ui/button";
+// import { Input } from "@/components/ui/input";
+// import { Loader2 } from "lucide-react";
 
+// const SignUpForm = () => {
+//   const [isSubmitting, setIsSubmitting] = useState(false);
+//   const { register: registerUser } = useAuth();
+//   const navigate = useNavigate();
 
+//   const form = useForm({
+//     defaultValues: {
+//       name: "",
+//       email: "",
+//       password: "",
+//       confirmPassword: "",
+//     },
+//   });
 
+//   const onSubmit = async (data) => {
+//     if (data.password !== data.confirmPassword) {
+//       toast.error("Passwords don't match!");
+//       return;
+//     }
 
+//     setIsSubmitting(true);
 
+//     try {
+//       // Remove confirmPassword before sending to API
+//       const { confirmPassword, ...userData } = data;
+//       const result = await registerUser(userData);
 
+//       if (result.success) {
+//         toast.success("Registration successful!");
+//         // Always redirect to home page after successful registration
+//         navigate("/", { replace: true });
+//       } else {
+//         toast.error(result.message || "Registration failed!");
+//       }
+//     } catch (err) {
+//       console.error("Registration error:", err);
+//       toast.error("Something went wrong!");
+//     } finally {
+//       setIsSubmitting(false);
+//     }
+//   };
 
+//   return (
+//     <div className="w-full max-w-md p-8 space-y-6 bg-white rounded-lg shadow">
+//       <div className="text-center">
+//         <h1 className="text-3xl font-bold mb-2">Create Account</h1>
+//         <p className="text-gray-600">Join us to explore Jharkhand</p>
+//       </div>
 
+//       <Form {...form}>
+//         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-5">
+//           <FormField
+//             name="name"
+//             control={form.control}
+//             rules={{
+//               required: "Name is required",
+//               minLength: {
+//                 value: 2,
+//                 message: "Name must be at least 2 characters long",
+//               },
+//             }}
+//             render={({ field }) => (
+//               <FormItem>
+//                 <FormLabel>Full Name</FormLabel>
+//                 <FormControl>
+//                   <Input type="text" placeholder="Enter your full name" {...field} />
+//                 </FormControl>
+//                 <FormMessage />
+//               </FormItem>
+//             )}
+//           />
 
+//           <FormField
+//             name="email"
+//             control={form.control}
+//             rules={{
+//               required: "Email is required",
+//               pattern: {
+//                 value: /^[^@ ]+@[^@ ]+\.[^@ .]{2,}$/,
+//                 message: "Invalid email format",
+//               },
+//             }}
+//             render={({ field }) => (
+//               <FormItem>
+//                 <FormLabel>Email</FormLabel>
+//                 <FormControl>
+//                   <Input type="email" placeholder="you@example.com" {...field} />
+//                 </FormControl>
+//                 <FormMessage />
+//               </FormItem>
+//             )}
+//           />
+
+//           <FormField
+//             name="password"
+//             control={form.control}
+//             rules={{
+//               required: "Password is required",
+//               minLength: {
+//                 value: 6,
+//                 message: "Password must be at least 6 characters long",
+//               },
+//             }}
+//             render={({ field }) => (
+//               <FormItem>
+//                 <FormLabel>Password</FormLabel>
+//                 <FormControl>
+//                   <Input type="password" placeholder="Create a password" {...field} />
+//                 </FormControl>
+//                 <FormMessage />
+//               </FormItem>
+//             )}
+//           />
+
+//           <FormField
+//             name="confirmPassword"
+//             control={form.control}
+//             rules={{
+//               required: "Please confirm your password",
+//               minLength: {
+//                 value: 6,
+//                 message: "Password must be at least 6 characters long",
+//               },
+//             }}
+//             render={({ field }) => (
+//               <FormItem>
+//                 <FormLabel>Confirm Password</FormLabel>
+//                 <FormControl>
+//                   <Input type="password" placeholder="Confirm your password" {...field} />
+//                 </FormControl>
+//                 <FormMessage />
+//               </FormItem>
+//             )}
+//           />
+
+//           <Button type="submit" disabled={isSubmitting} className="w-full">
+//             {isSubmitting ? (
+//               <>
+//                 <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+//                 Creating Account...
+//               </>
+//             ) : (
+//               "Create Account"
+//             )}
+//           </Button>
+//         </form>
+//       </Form>
+
+//       <div className="text-center text-sm">
+//         Already have an account?{" "}
+//         <Link to="/sign-in" className="text-blue-600 hover:underline">
+//           Sign In
+//         </Link>
+//       </div>
+//     </div>
+//   );
+// };
+
+// export default SignUpForm;
 
 import React, { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import * as z from "zod";
 import { toast } from "sonner";
 import { useAuth } from "@/context/AuthContext";
 import {
@@ -736,10 +870,36 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
+  FormDescription,
 } from "@/components/ui/form";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Loader2 } from "lucide-react";
+import { Checkbox } from "@/components/ui/checkbox";
+import { Loader2, User, Briefcase, Info, Mail, Lock } from "lucide-react";
+import { Alert, AlertDescription } from "@/components/ui/alert";
+
+// Zod validation schema
+const signUpSchema = z
+  .object({
+    name: z
+      .string()
+      .min(2, "Name must be at least 2 characters long")
+      .max(50, "Name must not exceed 50 characters")
+      .regex(/^[a-zA-Z\s]+$/, "Name can only contain letters and spaces"),
+    email: z.string().email("Invalid email format").toLowerCase(),
+    password: z
+      .string()
+      .min(6, "Password must be at least 6 characters long")
+      .max(100, "Password must not exceed 100 characters"),
+    confirmPassword: z
+      .string()
+      .min(6, "Password must be at least 6 characters long"),
+    wantsToBeManager: z.boolean().default(false),
+  })
+  .refine((data) => data.password === data.confirmPassword, {
+    message: "Passwords don't match",
+    path: ["confirmPassword"],
+  });
 
 const SignUpForm = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -747,29 +907,41 @@ const SignUpForm = () => {
   const navigate = useNavigate();
 
   const form = useForm({
+    resolver: zodResolver(signUpSchema),
     defaultValues: {
       name: "",
       email: "",
       password: "",
       confirmPassword: "",
+      wantsToBeManager: false,
     },
   });
 
-  const onSubmit = async (data) => {
-    if (data.password !== data.confirmPassword) {
-      toast.error("Passwords don't match!");
-      return;
-    }
+  const wantsToBeManager = form.watch("wantsToBeManager");
 
+  const onSubmit = async (data) => {
     setIsSubmitting(true);
 
     try {
-      // Remove confirmPassword before sending to API
-      const { confirmPassword, ...userData } = data;
-      const result = await registerUser(userData);
+      // Prepare data for API
+      const { confirmPassword, wantsToBeManager, ...userData } = data;
+
+      // Add requestedRole if user wants to be a manager
+      const registrationData = {
+        ...userData,
+        requestedRole: wantsToBeManager ? "manager" : null,
+      };
+
+      const result = await registerUser(registrationData);
 
       if (result.success) {
-        toast.success("Registration successful!");
+        if (wantsToBeManager) {
+          toast.success(
+            "Registration successful! Your manager role request is pending admin approval."
+          );
+        } else {
+          toast.success("Registration successful!");
+        }
         // Always redirect to home page after successful registration
         navigate("/", { replace: true });
       } else {
@@ -787,95 +959,141 @@ const SignUpForm = () => {
     <div className="w-full max-w-md p-8 space-y-6 bg-white rounded-lg shadow">
       <div className="text-center">
         <h1 className="text-3xl font-bold mb-2">Create Account</h1>
-        <p className="text-gray-600">Join us to explore Jharkhand</p>
+        <p className="text-gray-600">Join us to explore amazing hotels</p>
       </div>
 
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-5">
+          {/* Name Field */}
           <FormField
             name="name"
             control={form.control}
-            rules={{
-              required: "Name is required",
-              minLength: {
-                value: 2,
-                message: "Name must be at least 2 characters long",
-              },
-            }}
             render={({ field }) => (
               <FormItem>
                 <FormLabel>Full Name</FormLabel>
                 <FormControl>
-                  <Input type="text" placeholder="Enter your full name" {...field} />
+                  <div className="relative">
+                    <User className="absolute left-3 top-3 h-4 w-4 text-gray-400" />
+                    <Input
+                      type="text"
+                      placeholder="Enter your full name"
+                      className="pl-10"
+                      {...field}
+                    />
+                  </div>
                 </FormControl>
                 <FormMessage />
               </FormItem>
             )}
           />
 
+          {/* Email Field */}
           <FormField
             name="email"
             control={form.control}
-            rules={{
-              required: "Email is required",
-              pattern: {
-                value: /^[^@ ]+@[^@ ]+\.[^@ .]{2,}$/,
-                message: "Invalid email format",
-              },
-            }}
             render={({ field }) => (
               <FormItem>
                 <FormLabel>Email</FormLabel>
                 <FormControl>
-                  <Input type="email" placeholder="you@example.com" {...field} />
+                  <div className="relative">
+                    <Mail className="absolute left-3 top-3 h-4 w-4 text-gray-400" />
+                    <Input
+                      type="email"
+                      placeholder="you@example.com"
+                      className="pl-10"
+                      {...field}
+                    />
+                  </div>
                 </FormControl>
                 <FormMessage />
               </FormItem>
             )}
           />
 
+          {/* Password Field */}
           <FormField
             name="password"
             control={form.control}
-            rules={{
-              required: "Password is required",
-              minLength: {
-                value: 6,
-                message: "Password must be at least 6 characters long",
-              },
-            }}
             render={({ field }) => (
               <FormItem>
                 <FormLabel>Password</FormLabel>
                 <FormControl>
-                  <Input type="password" placeholder="Create a password" {...field} />
+                  <div className="relative">
+                    <Lock className="absolute left-3 top-3 h-4 w-4 text-gray-400" />
+                    <Input
+                      type="password"
+                      placeholder="Enter your password"
+                      className="pl-10"
+                      {...field}
+                    />
+                  </div>
                 </FormControl>
                 <FormMessage />
               </FormItem>
             )}
           />
 
+          {/* Confirm Password Field */}
           <FormField
             name="confirmPassword"
             control={form.control}
-            rules={{
-              required: "Please confirm your password",
-              minLength: {
-                value: 6,
-                message: "Password must be at least 6 characters long",
-              },
-            }}
             render={({ field }) => (
               <FormItem>
                 <FormLabel>Confirm Password</FormLabel>
                 <FormControl>
-                  <Input type="password" placeholder="Confirm your password" {...field} />
+                  <div className="relative">
+                    <Lock className="absolute left-3 top-3 h-4 w-4 text-gray-400" />
+                    <Input
+                      type="password"
+                      placeholder="Confirm your password"
+                      className="pl-10"
+                      {...field}
+                    />
+                  </div>
                 </FormControl>
                 <FormMessage />
               </FormItem>
             )}
           />
 
+          {/* Manager Role Checkbox */}
+          <FormField
+            name="wantsToBeManager"
+            control={form.control}
+            render={({ field }) => (
+              <FormItem className="flex flex-row items-start space-x-3 space-y-0 rounded-md border p-4 bg-gray-50">
+                <FormControl>
+                  <Checkbox
+                    checked={field.value}
+                    onCheckedChange={field.onChange}
+                  />
+                </FormControl>
+                <div className="space-y-1 leading-none">
+                  <FormLabel className="flex items-center gap-2 cursor-pointer">
+                    <Briefcase className="w-4 h-4" />I want to become a hotel
+                    manager
+                  </FormLabel>
+                  <FormDescription className="text-xs">
+                    You'll start as a tourist and your manager role request will
+                    be reviewed by an admin
+                  </FormDescription>
+                </div>
+              </FormItem>
+            )}
+          />
+
+          {/* Info Alert for Manager Request */}
+          {wantsToBeManager && (
+            <Alert className="bg-blue-50 border-blue-200">
+              <Info className="w-4 h-4 text-blue-600" />
+              <AlertDescription className="text-sm text-blue-800">
+                After registration, an admin will review your manager role
+                request. You'll be able to manage hotels once approved.
+              </AlertDescription>
+            </Alert>
+          )}
+
+          {/* Submit Button */}
           <Button type="submit" disabled={isSubmitting} className="w-full">
             {isSubmitting ? (
               <>
@@ -883,7 +1101,10 @@ const SignUpForm = () => {
                 Creating Account...
               </>
             ) : (
-              "Create Account"
+              <>
+                <User className="mr-2 h-4 w-4" />
+                Create Account
+              </>
             )}
           </Button>
         </form>
@@ -891,7 +1112,10 @@ const SignUpForm = () => {
 
       <div className="text-center text-sm">
         Already have an account?{" "}
-        <Link to="/sign-in" className="text-blue-600 hover:underline">
+        <Link
+          to="/sign-in"
+          className="text-blue-600 hover:underline font-medium"
+        >
           Sign In
         </Link>
       </div>

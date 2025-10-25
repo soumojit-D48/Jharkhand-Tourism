@@ -358,6 +358,12 @@ class ApiService {
     });
   }
 
+  async getAllManagers() {
+    return this.request("/admin/get-managers", {
+      method: "GET",
+    });
+  }
+
   async removeManager(userId) {
     return this.request(`/admin/remove-manager/${userId}`, {
       method: "DELETE",
