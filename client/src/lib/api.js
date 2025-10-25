@@ -293,6 +293,14 @@ class ApiService {
     });
   }
 
+  async userData() {
+    return this.request("/user/user-data", {
+      method: "GET",
+    });
+  }
+
+
+
   // Password reset methods
   async sendResetOtp(email) {
     return this.request("/auth/send-reset-otp", {
@@ -349,114 +357,6 @@ class ApiService {
       method: "DELETE",
     });
   }
-
-
-
-  // // ============================================
-  // // HOTELS - Public
-  // // ============================================
-
-  // async getAllHotels(params = {}) {
-  //   const queryString = new URLSearchParams(params).toString();
-  //   return this.request(`/hotels?${queryString}`, {
-  //     method: "GET",
-  //   });
-  // }
-
-  // async getHotelById(hotelId) {
-  //   return this.request(`/hotels/${hotelId}`, {
-  //     method: "GET",
-  //   });
-  // }
-
-  // async getHotelRooms(hotelId, params = {}) {
-  //   const queryString = new URLSearchParams(params).toString();
-  //   return this.request(`/hotels/${hotelId}/rooms?${queryString}`, {
-  //     method: "GET",
-  //   });
-  // }
-
-  // async getRoomById(roomId) {
-  //   return this.request(`/hotels/rooms/${roomId}`, {
-  //     method: "GET",
-  //   });
-  // }
-
-  // // ============================================
-  // // HOTELS - Manager Only
-  // // ============================================
-
-  // async createHotel(formData) {
-  //   return this.request("/hotels", {
-  //     method: "POST",
-  //     data: formData,
-  //     headers: {
-  //       "Content-Type": "multipart/form-data",
-  //     },
-  //   });
-  // }
-
-  // async getMyHotels(params = {}) {
-  //   const queryString = new URLSearchParams(params).toString();
-  //   return this.request(`/hotels/manager/my-hotels?${queryString}`, {
-  //     method: "GET",
-  //   });
-  // }
-
-  // async updateHotel(hotelId, formData) {
-  //   return this.request(`/hotels/${hotelId}`, {
-  //     method: "PUT",
-  //     data: formData,
-  //     headers: {
-  //       "Content-Type": "multipart/form-data",
-  //     },
-  //   });
-  // }
-
-  // async deleteHotelImage(hotelId, imageUrl) {
-  //   return this.request(`/hotels/${hotelId}/images`, {
-  //     method: "DELETE",
-  //     data: { imageUrl },
-  //   });
-  // }
-
-  // async deleteHotel(hotelId) {
-  //   return this.request(`/hotels/${hotelId}`, {
-  //     method: "DELETE",
-  //   });
-  // }
-
-  // // ============================================
-  // // ROOMS - Manager Only
-  // // ============================================
-
-  // async addRoom(hotelId, roomData) {
-  //   return this.request(`/hotels/${hotelId}/rooms`, {
-  //     method: "POST",
-  //     data: roomData,
-  //   });
-  // }
-
-  // async addMultipleRooms(hotelId, rooms) {
-  //   return this.request(`/hotels/${hotelId}/rooms/bulk`, {
-  //     method: "POST",
-  //     data: { rooms },
-  //   });
-  // }
-
-  // async updateRoom(roomId, roomData) {
-  //   return this.request(`/hotels/rooms/${roomId}`, {
-  //     method: "PUT",
-  //     data: roomData,
-  //   });
-  // }
-
-  // async deleteRoom(roomId) {
-  //   return this.request(`/hotels/rooms/${roomId}`, {
-  //     method: "DELETE",
-  //   });
-  // }
-
 
 
 

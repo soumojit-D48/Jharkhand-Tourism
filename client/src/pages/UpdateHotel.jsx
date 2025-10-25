@@ -1,9 +1,7 @@
 
 
-
-
-import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useState, useEffect } from 'react';
+import { useNavigate, useParams } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import * as z from 'zod';
@@ -13,9 +11,18 @@ import { Textarea } from '@/components/ui/textarea';
 import { Label } from '@/components/ui/label';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Alert, AlertDescription } from '@/components/ui/alert';
-import { Loader2, Upload, X } from 'lucide-react';
-// import  from '@/lib/api';
-import { apiService } from '../lib/api';
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+} from '@/components/ui/alert-dialog';
+import { Loader2, Upload, X, Trash2 } from 'lucide-react';
+import {apiService} from '@/lib/api';
 
 // Validation Schema
 const hotelSchema = z.object({
@@ -36,38 +43,80 @@ const hotelSchema = z.object({
   path: ["maxPrice"],
 });
 
-export default function CreateHotel() {
+export default function EditHotel() {
+  const { hotelId } = useParams();
   const navigate = useNavigate();
-  const [images, setImages] = useState([]);
-  const [imagePreviews, setImagePreviews] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
+  const [hotel, setHotel] = useState(null);
+  const [existingImages, setExistingImages] = useState([]);
+  const [newImages, setNewImages] = useState([]);
+  const [newImagePreviews, setNewImagePreviews] = useState([]);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [error, setError] = useState('');
   const [success, setSuccess] = useState('');
+  const [deleteImageDialog, setDeleteImageDialog] = useState(false);
+  const [imageToDelete, setImageToDelete] = useState(null);
+  const [isDeletingImage, setIsDeletingImage] = useState(false);
 
   const {
     register,
     handleSubmit,
     formState: { errors },
     reset,
+    setValue,
   } = useForm({
     resolver: zodResolver(hotelSchema),
   });
 
-  const handleImageChange = (e) => {
+  // Fetch hotel details
+  useEffect(() => {
+    const fetchHotel = async () => {
+      setIsLoading(true);
+      setError('');
+      try {
+        const response = await apiService.getHotelById(hotelId);
+        const hotelData = response.hotel;
+        setHotel(hotelData);
+        setExistingImages(hotelData.images || []);
+
+        // Populate form
+        setValue('name', hotelData.name);
+        setValue('description', hotelData.description);
+        setValue('district', hotelData.location.district);
+        setValue('address', hotelData.location.address);
+        setValue('lat', hotelData.location.coordinates?.lat?.toString() || '');
+        setValue('lng', hotelData.location.coordinates?.lng?.toString() || '');
+        setValue('minPrice', hotelData.priceRange.min.toString());
+        setValue('maxPrice', hotelData.priceRange.max.toString());
+
+      } catch (err) {
+        setError(err.message || 'Failed to load hotel');
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    if (hotelId) {
+      fetchHotel();
+    }
+  }, [hotelId, setValue]);
+
+  const handleNewImageChange = (e) => {
     const files = Array.from(e.target.files);
     
-    if (files.length + images.length > 10) {
+    const totalImages = existingImages.length + newImages.length + files.length;
+    if (totalImages > 10) {
       setError('Maximum 10 images allowed');
       return;
     }
 
-    setImages(prev => [...prev, ...files]);
+    setNewImages(prev => [...prev, ...files]);
 
     // Create previews
     files.forEach(file => {
       const reader = new FileReader();
       reader.onloadend = () => {
-        setImagePreviews(prev => [...prev, reader.result]);
+        setNewImagePreviews(prev => [...prev, reader.result]);
       };
       reader.readAsDataURL(file);
     });
@@ -75,9 +124,33 @@ export default function CreateHotel() {
     e.target.value = ''; // Reset input
   };
 
-  const removeImage = (index) => {
-    setImages(prev => prev.filter((_, i) => i !== index));
-    setImagePreviews(prev => prev.filter((_, i) => i !== index));
+  const removeNewImage = (index) => {
+    setNewImages(prev => prev.filter((_, i) => i !== index));
+    setNewImagePreviews(prev => prev.filter((_, i) => i !== index));
+  };
+
+  const handleDeleteExistingImage = (imageUrl) => {
+    setImageToDelete(imageUrl);
+    setDeleteImageDialog(true);
+  };
+
+  const confirmDeleteImage = async () => {
+    if (!imageToDelete) return;
+
+    setIsDeletingImage(true);
+    try {
+      await ApiService.deleteHotelImage(hotelId, imageToDelete);
+      setExistingImages(prev => prev.filter(img => img !== imageToDelete));
+      setDeleteImageDialog(false);
+      setImageToDelete(null);
+      setSuccess('Image deleted successfully');
+      setTimeout(() => setSuccess(''), 3000);
+    } catch (err) {
+      setError(err.message || 'Failed to delete image');
+      setDeleteImageDialog(false);
+    } finally {
+      setIsDeletingImage(false);
+    }
   };
 
   const onSubmit = async (data) => {
@@ -111,37 +184,56 @@ export default function CreateHotel() {
         max: parseFloat(data.maxPrice),
       }));
 
-      // Append images
-      images.forEach((image) => {
+      // Append new images
+      newImages.forEach((image) => {
         formData.append('images', image);
       });
 
-      const response = await apiService.createHotel(formData);
+      await apiService.updateHotel(hotelId, formData);
       
-      setSuccess('Hotel created successfully!');
-      reset();
-      setImages([]);
-      setImagePreviews([]);
+      setSuccess('Hotel updated successfully!');
+      setNewImages([]);
+      setNewImagePreviews([]);
       
-      // Navigate to hotel details or my hotels page after 2 seconds
+      // Navigate back after 2 seconds
       setTimeout(() => {
-        navigate(`/manager/hotels/${response.hotel._id}`);
+        navigate(`/hotels/${hotelId}`);
       }, 2000);
       
     } catch (err) {
-      setError(err.message || 'Failed to create hotel');
+      setError(err.message || 'Failed to update hotel');
     } finally {
       setIsSubmitting(false);
     }
   };
 
+  if (isLoading) {
+    return (
+      <div className="container mx-auto py-8 px-4">
+        <div className="flex items-center justify-center h-64">
+          <Loader2 className="w-8 h-8 animate-spin text-gray-500" />
+        </div>
+      </div>
+    );
+  }
+
+  if (!hotel) {
+    return (
+      <div className="container mx-auto py-8 px-4">
+        <Alert variant="destructive">
+          <AlertDescription>Hotel not found</AlertDescription>
+        </Alert>
+      </div>
+    );
+  }
+
   return (
     <div className="container mx-auto py-8 px-4 max-w-4xl">
       <Card>
         <CardHeader>
-          <CardTitle className="text-3xl">Create New Hotel</CardTitle>
+          <CardTitle className="text-3xl">Edit Hotel</CardTitle>
           <CardDescription>
-            Add your hotel details and upload images to get started
+            Update your hotel information and images
           </CardDescription>
         </CardHeader>
         <CardContent>
@@ -275,50 +367,81 @@ export default function CreateHotel() {
               </div>
             </div>
 
-            {/* Image Upload */}
-            <div className="space-y-4">
-              <h3 className="text-lg font-semibold">Hotel Images (Max 10)</h3>
-              
-              <div className="border-2 border-dashed border-gray-300 rounded-lg p-6 text-center">
-                <input
-                  type="file"
-                  id="images"
-                  accept="image/*"
-                  multiple
-                  onChange={handleImageChange}
-                  className="hidden"
-                  disabled={images.length >= 10}
-                />
-                <Label
-                  htmlFor="images"
-                  className="cursor-pointer flex flex-col items-center gap-2"
-                >
-                  <Upload className="w-12 h-12 text-gray-400" />
-                  <span className="text-sm text-gray-600">
-                    Click to upload images ({images.length}/10)
-                  </span>
-                </Label>
-              </div>
-
-              {/* Image Previews */}
-              {imagePreviews.length > 0 && (
+            {/* Existing Images */}
+            {existingImages.length > 0 && (
+              <div className="space-y-4">
+                <h3 className="text-lg font-semibold">Current Images</h3>
                 <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-                  {imagePreviews.map((preview, index) => (
+                  {existingImages.map((imageUrl, index) => (
                     <div key={index} className="relative group">
                       <img
-                        src={preview}
-                        alt={`Preview ${index + 1}`}
+                        src={imageUrl}
+                        alt={`Hotel ${index + 1}`}
                         className="w-full h-32 object-cover rounded-lg"
                       />
                       <button
                         type="button"
-                        onClick={() => removeImage(index)}
+                        onClick={() => handleDeleteExistingImage(imageUrl)}
                         className="absolute top-2 right-2 bg-red-500 text-white rounded-full p-1 opacity-0 group-hover:opacity-100 transition-opacity"
                       >
-                        <X className="w-4 h-4" />
+                        <Trash2 className="w-4 h-4" />
                       </button>
                     </div>
                   ))}
+                </div>
+              </div>
+            )}
+
+            {/* Add New Images */}
+            <div className="space-y-4">
+              <h3 className="text-lg font-semibold">
+                Add New Images (Total: {existingImages.length + newImages.length}/10)
+              </h3>
+              
+              {existingImages.length + newImages.length < 10 && (
+                <div className="border-2 border-dashed border-gray-300 rounded-lg p-6 text-center">
+                  <input
+                    type="file"
+                    id="newImages"
+                    accept="image/*"
+                    multiple
+                    onChange={handleNewImageChange}
+                    className="hidden"
+                  />
+                  <Label
+                    htmlFor="newImages"
+                    className="cursor-pointer flex flex-col items-center gap-2"
+                  >
+                    <Upload className="w-12 h-12 text-gray-400" />
+                    <span className="text-sm text-gray-600">
+                      Click to upload new images
+                    </span>
+                  </Label>
+                </div>
+              )}
+
+              {/* New Image Previews */}
+              {newImagePreviews.length > 0 && (
+                <div className="space-y-2">
+                  <p className="text-sm font-medium">New Images to Upload:</p>
+                  <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+                    {newImagePreviews.map((preview, index) => (
+                      <div key={index} className="relative group">
+                        <img
+                          src={preview}
+                          alt={`New ${index + 1}`}
+                          className="w-full h-32 object-cover rounded-lg border-2 border-green-500"
+                        />
+                        <button
+                          type="button"
+                          onClick={() => removeNewImage(index)}
+                          className="absolute top-2 right-2 bg-red-500 text-white rounded-full p-1 opacity-0 group-hover:opacity-100 transition-opacity"
+                        >
+                          <X className="w-4 h-4" />
+                        </button>
+                      </div>
+                    ))}
+                  </div>
                 </div>
               )}
             </div>
@@ -333,10 +456,10 @@ export default function CreateHotel() {
                 {isSubmitting ? (
                   <>
                     <Loader2 className="w-4 h-4 mr-2 animate-spin" />
-                    Creating Hotel...
+                    Updating Hotel...
                   </>
                 ) : (
-                  'Create Hotel'
+                  'Update Hotel'
                 )}
               </Button>
               
@@ -352,6 +475,37 @@ export default function CreateHotel() {
           </form>
         </CardContent>
       </Card>
+
+      {/* Delete Image Confirmation Dialog */}
+      <AlertDialog open={deleteImageDialog} onOpenChange={setDeleteImageDialog}>
+        <AlertDialogContent>
+          <AlertDialogHeader>
+            <AlertDialogTitle>Delete Image?</AlertDialogTitle>
+            <AlertDialogDescription>
+              Are you sure you want to delete this image? This action cannot be undone.
+            </AlertDialogDescription>
+          </AlertDialogHeader>
+          <AlertDialogFooter>
+            <AlertDialogCancel disabled={isDeletingImage}>
+              Cancel
+            </AlertDialogCancel>
+            <AlertDialogAction
+              onClick={confirmDeleteImage}
+              disabled={isDeletingImage}
+              className="bg-red-600 hover:bg-red-700"
+            >
+              {isDeletingImage ? (
+                <>
+                  <Loader2 className="w-4 h-4 mr-2 animate-spin" />
+                  Deleting...
+                </>
+              ) : (
+                'Delete Image'
+              )}
+            </AlertDialogAction>
+          </AlertDialogFooter>
+        </AlertDialogContent>
+      </AlertDialog>
     </div>
   );
 }

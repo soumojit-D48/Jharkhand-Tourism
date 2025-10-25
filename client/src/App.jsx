@@ -1,31 +1,34 @@
 // // import './App.css'
- 
 
-
-
-
-import { Route, Routes } from 'react-router-dom';
-import { Toaster } from 'sonner'; // Import Toaster for notifications
-import Home from './pages/Home';
-import SignIn from './pages/SignIn';
-import SignUp from './pages/SignUp';
-import NotFound from './pages/NotFound';
-import Destination from './pages/Destination';
-import AskMe from './pages/AskMe';
-import Player from './pages/Player';
+import { Route, Routes } from "react-router-dom";
+import { Toaster } from "sonner"; // Import Toaster for notifications
+import Home from "./pages/Home";
+import SignIn from "./pages/SignIn";
+import SignUp from "./pages/SignUp";
+import NotFound from "./pages/NotFound";
+import Destination from "./pages/Destination";
+import AskMe from "./pages/AskMe";
+import Player from "./pages/Player";
 // import WeatherPage from './pages/WeatherPage';
-import MapPage from './pages/Map'
-import CulturalSites from './pages/CulturalSites';
-import ForgotPassword from './pages/ForgotPassword';
-import WeatherForcast from './pages/WeatherForcast';
+import MapPage from "./pages/Map";
+import CulturalSites from "./pages/CulturalSites";
+import ForgotPassword from "./pages/ForgotPassword";
+import WeatherForcast from "./pages/WeatherForcast";
 
-import Layout from './components/layout/LayoutComp';
-import ProtectedRoute from './components/layout/ProtectRoute';
-import PublicRoute from './components/layout/PublicRoute';
-import HotelRoomCreation from './pages/CreateHotel';
-import AddMultipleRooms from './pages/AddRooms';
-import { AdminManagement } from './pages/AdminManage';
-import { RoleManagement } from './pages/RoleManage';
+import Layout from "./components/layout/LayoutComp";
+import ProtectedRoute from "./components/layout/ProtectRoute";
+import PublicRoute from "./components/layout/PublicRoute";
+import HotelRoomCreation from "./pages/CreateHotel";
+import AddMultipleRooms from "./pages/AddRooms";
+import { AdminManagement } from "./pages/AdminManage";
+import { RoleManagement } from "./pages/RoleManage";
+import ManageMyHotels from "./pages/ManageMyHotels";
+import EditHotel from "./pages/UpdateHotel";
+import EditRoom from "./pages/UpdateRoom";
+import HotelDetails from "./pages/HotelDetails";
+import RoomDetails from "./pages/RoomDetails";
+import AllHotels from "./pages/AllHotels";
+import Unauthorized from "./components/layout/UnAuthorize";
 
 function App() {
   return (
@@ -63,15 +66,14 @@ function App() {
           }
         />
 
-        {/* Protected Routes - Require authentication */}
         <Route
           path="/"
           element={
             // <ProtectedRoute>
-              <Layout>
-                <Home />
-              </Layout>
-            // </ProtectedRoute> 
+            <Layout>
+              <Home />
+            </Layout>
+            // </ProtectedRoute>
           }
         />
         <Route
@@ -104,16 +106,7 @@ function App() {
             </ProtectedRoute>
           }
         />
-        {/* <Route
-          path="/weather2"
-          element={
-            <ProtectedRoute>
-              <Layout>
-                <WeatherPage />
-              </Layout>
-            </ProtectedRoute>
-          }
-        /> */}
+
         <Route
           path="/map"
           element={
@@ -140,59 +133,130 @@ function App() {
           element={
             <ProtectedRoute>
               <Layout>
-                <WeatherForcast/>
+                <WeatherForcast />
               </Layout>
-            </ProtectedRoute> 
-          }
-        />
-
-        
-
-        <Route
-          path="/create-hotel"
-          element={
-            <ProtectedRoute>
-              <Layout>
-                <HotelRoomCreation/>
-              </Layout>
-            </ProtectedRoute> 
+            </ProtectedRoute>
           }
         />
 
         <Route
-          path="/hotel/:hotelId/add-rooms"
+          path="/manager/hotels/create"
           element={
-            <ProtectedRoute>
+            <ProtectedRoute allowedRoles={["manager", "admin"]}>
               <Layout>
-                <AddMultipleRooms/>
+                <HotelRoomCreation />
               </Layout>
-            </ProtectedRoute> 
-          }
-        />
-
-
-        <Route
-          path="/admin-manage"
-          element={
-            <ProtectedRoute>
-              <Layout>
-                <AdminManagement/>
-              </Layout>
-            </ProtectedRoute> 
+            </ProtectedRoute>
           }
         />
 
         <Route
-          path="/role-manage"
+          path="/manager/hotels/:hotelId/add-rooms"
           element={
-            <ProtectedRoute>
+            <ProtectedRoute allowedRoles={["manager", "admin"]}>
               <Layout>
-                <RoleManagement/>
+                <AddMultipleRooms />
               </Layout>
-            </ProtectedRoute> 
+            </ProtectedRoute>
           }
         />
 
+        <Route
+          path="/hotels/my-hotels"
+          element={
+            <ProtectedRoute allowedRoles={["manager", "admin"]}>
+              <Layout>
+                <ManageMyHotels />
+              </Layout>
+            </ProtectedRoute>
+          }
+        />
+
+        <Route
+          path="/manager/hotels/:hotelId/edit"
+          element={
+            <ProtectedRoute allowedRoles={["manager", "admin"]}>
+              <Layout>
+                <EditHotel />
+              </Layout>
+            </ProtectedRoute>
+          }
+        />
+
+        <Route
+          path="/manager/rooms/:roomId/edit"
+          element={
+            <ProtectedRoute allowedRoles={["manager", "admin"]}>
+              <Layout>
+                <EditRoom />
+              </Layout>
+            </ProtectedRoute>
+          }
+        />
+
+        <Route
+          path="/hotels/:hotelId"
+          element={
+            <ProtectedRoute>
+              <Layout>
+                <HotelDetails />
+              </Layout>
+            </ProtectedRoute>
+          }
+        />
+
+        <Route
+          path="/hotels/room/:roomId"
+          element={
+            <ProtectedRoute>
+              <Layout>
+                <RoomDetails />
+              </Layout>
+            </ProtectedRoute>
+          }
+        />
+
+        <Route
+          path="/hotels"
+          element={
+            <ProtectedRoute>
+              <Layout>
+                <AllHotels />
+              </Layout>
+            </ProtectedRoute>
+          }
+        />
+
+        <Route
+          path="/admin/admin-manage"
+          element={
+            <ProtectedRoute>
+              <Layout>
+                <AdminManagement />
+              </Layout>
+            </ProtectedRoute>
+          }
+        />
+
+        <Route
+          path="/admin/role-manage"
+          element={
+            <ProtectedRoute>
+              <Layout>
+                <RoleManagement />
+              </Layout>
+            </ProtectedRoute>
+          }
+        />
+
+        <Route
+          path="/unauthorized"
+          element={
+            <Layout>
+              <Unauthorized />
+            </Layout>
+          }
+        />
 
         {/* 404 Route */}
         <Route
@@ -204,7 +268,7 @@ function App() {
           }
         />
       </Routes>
-      
+
       {/* Toast notifications */}
       <Toaster position="top-right" richColors />
     </div>
@@ -212,19 +276,6 @@ function App() {
 }
 
 export default App;
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 // import {Route, Routes} from 'react-router-dom'
 // import Home from './pages/Home'
@@ -270,20 +321,11 @@ export default App;
 //     </Routes>
 //     {/* <Footer className="absolute bottom-0"/> */}
 //     </div>
-    
+
 //   )
 // }
 
 // export default App
-
-
-
-
-
-
-
-
-
 
 // import { Route, Routes } from 'react-router-dom'
 // import { Toaster } from 'sonner'
@@ -320,13 +362,13 @@ export default App;
 //       >
 //         <Navbar />
 //       </ConditionalRoute>
-      
+
 //       {/* Main content area */}
 //       <main className="flex-1">
 //         <Routes>
 //           {/* Public routes - accessible to everyone */}
 //           <Route path='/' element={<Home />} />
-          
+
 //           {/* Auth routes - redirect authenticated users away */}
 //           <Route path='/sign-up' element={
 //             <PublicRoute>
@@ -343,7 +385,7 @@ export default App;
 //               <ForgotPassword />
 //             </PublicRoute>
 //           } />
-          
+
 //           {/* Protected routes - require authentication */}
 //           <Route path='/destinations' element={
 //             <ProtectedRoute>
@@ -375,16 +417,16 @@ export default App;
 //               <CulturalSites />
 //             </ProtectedRoute>
 //           } />
-          
+
 //           {/* 404 route */}
 //           <Route path="*" element={<NotFound />} />
 //         </Routes>
 //       </main>
 
 //       <Footer />
-      
+
 //       {/* Toast notifications */}
-//       <Toaster 
+//       <Toaster
 //         position="top-right"
 //         richColors
 //         closeButton
@@ -395,4 +437,3 @@ export default App;
 // }
 
 // export default App
-
