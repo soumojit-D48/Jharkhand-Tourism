@@ -358,6 +358,14 @@ class ApiService {
     });
   }
 
+  async removeManager(userId) {
+    return this.request(`/admin/remove-manager/${userId}`, {
+      method: "DELETE",
+    });
+  }
+
+
+
 
 
   // ============================================

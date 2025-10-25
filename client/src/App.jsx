@@ -29,6 +29,7 @@ import HotelDetails from "./pages/HotelDetails";
 import RoomDetails from "./pages/RoomDetails";
 import AllHotels from "./pages/AllHotels";
 import Unauthorized from "./components/layout/UnAuthorize";
+import ManageHotelManager from "./pages/ManageHotelManager";
 
 function App() {
   return (
@@ -230,7 +231,7 @@ function App() {
         <Route
           path="/admin/admin-manage"
           element={
-            <ProtectedRoute>
+            <ProtectedRoute allowedRoles={["admin"]}>
               <Layout>
                 <AdminManagement />
               </Layout>
@@ -241,9 +242,20 @@ function App() {
         <Route
           path="/admin/role-manage"
           element={
-            <ProtectedRoute>
+            <ProtectedRoute allowedRoles={["admin"]}>
               <Layout>
                 <RoleManagement />
+              </Layout>
+            </ProtectedRoute>
+          }
+        />
+
+        <Route
+          path="/admin/managers"
+          element={
+            <ProtectedRoute allowedRoles={["admin"]}>
+              <Layout>
+                <ManageHotelManager />
               </Layout>
             </ProtectedRoute>
           }

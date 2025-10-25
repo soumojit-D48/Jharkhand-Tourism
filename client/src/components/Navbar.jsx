@@ -511,6 +511,15 @@ const Navbar = () => {
                       <Users className="h-4 w-4" />
                       <span>Role Manage</span>
                     </Link>
+
+                    <Link
+                            to="/admin/managers"
+                            onClick={handleNavLinkClick}
+                            className="flex items-center space-x-2 text-sm text-muted-foreground hover:text-primary py-2 px-2 rounded-md hover:bg-muted/50"
+                          >
+                            <Settings className="h-4 w-4" />
+                            <span>Hotel Managers</span>
+                          </Link>
                   </div>
                 )}
               </div>
@@ -706,6 +715,15 @@ const Navbar = () => {
                           >
                             <Users className="h-4 w-4" />
                             <span>Role Manage</span>
+                          </Link>
+
+                          <Link
+                            to="/admin/managers"
+                            onClick={handleNavLinkClick}
+                            className="flex items-center space-x-2 text-sm text-muted-foreground hover:text-primary py-2 px-2 rounded-md hover:bg-muted/50"
+                          >
+                            <Settings className="h-4 w-4" />
+                            <span>Hotel Managers</span>
                           </Link>
                         </div>
                       )}
